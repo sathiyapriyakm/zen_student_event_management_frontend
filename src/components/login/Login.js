@@ -10,7 +10,7 @@ import * as Yup from "yup";
 
 import TextField from '@mui/material/TextField'
 import { useNavigate } from 'react-router-dom'
-import { API } from './global.js';
+import { API } from '../../global';
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
 
