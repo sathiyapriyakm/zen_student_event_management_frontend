@@ -1,8 +1,8 @@
 import { useState } from "react";
 // import { Counter } from "./Counter";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
+// import InfoIcon from '@mui/icons-material/Info';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Card from '@mui/material/Card';
@@ -18,7 +18,7 @@ export function EventDisplay({ eventname, eventposter, eventsummary, eventdate,e
   // const paraStyle = {
   //   display: show ? "block" : "none",
   // };
-  const navigate=useNavigate();
+  // const navigate=useNavigate();
  
 
   return (<Card className="movie-container" sx={{height:"min-content"}}>
