@@ -19,10 +19,10 @@ export function AdminLogin() {
   
   const navigate=useNavigate();
   const[errorMsg,setErrorMsg]=useState("");
-  const entry=()=>navigate("/createurl");
+  const entry=()=>navigate("/Admindashboard");
 
   const loginUser =(userDetail) => {
-    fetch(`${API}/login`,{
+    fetch(`${API}/admin/login`,{
     method: "POST",
     body: JSON.stringify(userDetail),
     headers: {

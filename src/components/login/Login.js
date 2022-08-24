@@ -19,7 +19,7 @@ export function Login() {
   
   const navigate=useNavigate();
   const[errorMsg,setErrorMsg]=useState("");
-  const entry=()=>navigate("/createurl");
+  const entry=()=>navigate("/Dashboard");
 
   const loginUser =(userDetail) => {
     fetch(`${API}/login`,{

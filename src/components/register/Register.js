@@ -7,9 +7,8 @@ import {
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from "yup";
-
 import TextField from '@mui/material/TextField'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { API } from '../../global';
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
@@ -17,9 +16,9 @@ import {Link} from 'react-router-dom';
 
 export function Register() {
   
-  // const navigate=useNavigate();
+  const navigate=useNavigate();
   const[errorMsg,setErrorMsg]=useState("");
-  // const login=()=>navigate("/Login");
+  const login=()=>navigate("/Login");
 
   const regUser =(newUser) => {
     fetch(`${API}/signup`,{
@@ -31,9 +30,7 @@ export function Register() {
   }).then((data)=>data.json())
   .then((data1)=>{
       if(data1.message==="successful Signup"){
-          // login();
-          window.alert("Activate acount by click URL sent to your mail");
-        
+          login();
         }
       else {
           setErrorMsg(data1.message);

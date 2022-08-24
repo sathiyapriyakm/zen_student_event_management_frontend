@@ -1,25 +1,28 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { ThemeProvider } from '@emotion/react'
+import { createTheme } from '@mui/material'
+
+// import {Sidebar} from './components/Sidebar'
+
+const theme = createTheme({
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Barlow, sans-serif',
+        },
+      },
+    },
+  },
+})
 
 export function StudentDashboard() {
   return (
-    <>
-     <h1 style={{textAlign:"center",color:"green",fontSize:"50px"}}>Successful Login!!</h1>
-    <br/>
-      <br/>
-    <h1 style={{textAlign:"center",color:"green",fontSize:"50px"}}>Welcome to App</h1>
-
-    <br/>
-      <br/>
-    <div style={{textAlign:"center",color:"blue"}}>
-      <Link to="/Register">Create  Account!</Link>
-      <br/>
-      <br/>
-     <Link to="/ForgetPassword">Forget Password?</Link>
-     <br/>
-      <br/>
-     <Link to="/">Login</Link>
-    </div>
-    </>
-  );
+    <ThemeProvider theme={theme}>
+      {/* <AppState> */}
+        <div className="App">
+          {/* <Sidebar /> */}
+        </div>
+      {/* </AppState> */}
+    </ThemeProvider>
+  )
 }
