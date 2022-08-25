@@ -21,11 +21,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { StudentEvents } from "components/studentDashboard/StudentEvents";
 import { StudentRegEvents } from "components/studentDashboard/StudentRegEvents";
-import { StudentNewEvents } from "components/studentDashboard/StudentNewEvents";
 import { AdminEvents } from "components/adminDashboard/AdminEvents";
 import { Participants } from "components/adminDashboard/Participants";
 import { AdminNewEvent } from "components/adminDashboard/AdminNewEvent";
 import { EditEvents } from "components/adminDashboard/EditEvents";
+import { RegStudentForEvent } from "components/studentDashboard/RegStudentForEvent";
+
 
 const studentdata = [
   {
@@ -36,10 +37,10 @@ const studentdata = [
     label: "Enrolled Events",
     to: "/Studentregisteredevents",
   },
-  {
-    label: "Register new event",
-    to: "/Studentnewevents",
-  },
+  // {
+  //   label: "Register new event",
+  //   to: "/Studentnewevents",
+  // },
 ];
 const admindata = [
   {
@@ -76,10 +77,6 @@ function App() {
           element={<MainBoard flow="StudentRegEvents" user="student" />}
         />
         <Route
-          path="/Studentnewevents"
-          element={<MainBoard flow="StudentNewEvents" user="student" />}
-        />
-        <Route
           path="/Admindashboard"
           element={<MainBoard flow="AdminDashboard" user="admin" />}
         />
@@ -98,6 +95,10 @@ function App() {
         <Route
         path="/EditEvents/:eventid"
         element={<MainBoard flow="EditEvents" user="admin" />}
+        />
+         <Route
+        path="/RegisterEvents/:eventid"
+        element={<MainBoard flow="RegStudentForEvent" user="student" />}
         />
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/" element={<Navigate replace to="/Login" />} />
@@ -182,11 +183,11 @@ function MainBoard({ flow, user }) {
                       AdminDashboard: <AdminDashboard />,
                       StudentEvents: <StudentEvents />,
                       StudentRegEvents: <StudentRegEvents />,
-                      StudentNewEvents: <StudentNewEvents />,
                       AdminEvents: <AdminEvents />,
                       Participants: <Participants />,
                       AdminNewEvent: <AdminNewEvent />,
                       EditEvents:<EditEvents/>,
+                      RegStudentForEvent:<RegStudentForEvent/>,
                     }[flow]
                   }
                 </section>

@@ -101,14 +101,13 @@ export function AdminNewEvent() {
        <TextField
           className="add-movie-name"
           label="Event start time"
-          type="time"
+          type="text"
           value={values.eventstarttime} 
           name="eventstarttime"
           onChange={handleChange}
           onBlur={handleBlur}
           error={touched.eventstarttime&&errors.eventstarttime?true:false}
           helperText= {touched.eventstarttime&&errors.eventstarttime?errors.eventstarttime:""}
-          focused
         />
 
        <TextField

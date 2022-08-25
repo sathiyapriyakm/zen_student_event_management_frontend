@@ -1,0 +1,42 @@
+<section class="userdata ">
+    <div class="container ">
+        <div class="row tableform sticky-top text-center">
+            <div class="col-sm">
+                <h1>Register form</h1>
+            </div>
+        </div>
+        <div class="row mt-4 tableform  ">
+            <div class="col-sm  my-3  fs-4 ">
+                <form class="row g-3 ">
+                    <div class="col-md-4 "><label for="validationCustom01" class="form-label">Name</label><input
+                            type="text" name="name" id="validationCustom01" class="form-control" placeholder="Name"
+                            required="" value=""></div>
+                    <div class="col-md-4"><label for="validationCustom02" class="form-label">Email</label><input
+                            type="email" name="email" id="validationCustom02" class="form-control" placeholder="Email"
+                            required="" value=""></div>
+                    <div class="col-md-4"><label for="validationCustom02" class="form-label">Confirm Email</label><input
+                            type="email" name="confirmemail" id="validationCustom02" class="form-control"
+                            placeholder="Confirm Email" required="" value=""></div>
+                    <div class="col-md-6"><label for="validationCustom03" class="form-label">Phone number</label><input
+                            type="number" name="number" id="validationCustom03" class="form-control"
+                            placeholder="Phone Number" required="" value=""></div>
+                    <div class="col-md-3"><label for="validationCustom04" class="form-label">Member</label><select
+                            class="form-select" name="member" id="validationCustom04" required="">
+                            <option disabled="" value="">Choose...</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select></div>
+                    <div class="col-md-3"><label for="validationCustom04" class="form-label">Gender</label><select
+                            class="form-select" name="gender" id="validationCustom04" required="">
+                            <option disabled="" value="">Choose...</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select></div>
+                    <div class="col-12 d-flex justify-conter-center"><button class="btn btn-primary w-50"
+                            type="submit">Submit form</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

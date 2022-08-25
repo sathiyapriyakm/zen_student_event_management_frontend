@@ -23,7 +23,7 @@ export function EditEvents() {
     }   
   useEffect(()=>getEvent(),[]);
 
-  return (event?<EditForm event={event}/>:"Loading...");
+  return (event?<EditForm event={event}/>:<h3>Loading...</h3>);
   }
   const eventValidationSchema=yup.object({
     eventname:yup.string().required("Kindly fill the Event Name input field"),
@@ -119,7 +119,7 @@ export function EditEvents() {
        <TextField
           className="add-movie-name"
           label="Event start time"
-          type="time"
+          type="text"
           value={values.eventstarttime} 
           name="eventstarttime"
           onChange={handleChange}
