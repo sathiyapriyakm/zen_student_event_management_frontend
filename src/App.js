@@ -9,7 +9,6 @@ import { ChangePassword } from "./components/forgetPassword/ChangePassword";
 import { StudentDashboard } from "./components/studentDashboard/StudentDashboard";
 import React from "react";
 import { AdminLogin } from "components/adminLogin/AdminLogin";
-import { AdminDashboard } from "components/adminDashboard/AdminDashboard";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 // import { Navbar } from 'components/navbar/Navbar';
@@ -75,10 +74,6 @@ function App() {
         <Route
           path="/Studentregisteredevents"
           element={<MainBoard flow="StudentRegEvents" user="student" />}
-        />
-        <Route
-          path="/Admindashboard"
-          element={<MainBoard flow="AdminDashboard" user="admin" />}
         />
         <Route
           path="/Adminevents"
@@ -180,7 +175,6 @@ function MainBoard({ flow, user }) {
                   {
                     {
                       StudentDashboard: <StudentDashboard />,
-                      AdminDashboard: <AdminDashboard />,
                       StudentEvents: <StudentEvents />,
                       StudentRegEvents: <StudentRegEvents />,
                       AdminEvents: <AdminEvents />,

@@ -11,7 +11,7 @@ import { API } from "../../global";
     firstName:yup.string().required("Kindly fill your First Name"),
     lastName:yup.string().required("Kindly fill your Last Name"),
     email:yup.string().email().required("Kindly fill your email"),
-    contactNumber:yup.number().required("Kindly provide your contact number").min(10,"phone number is less than 10 digits").max(10,"phone number is greater than 10 digits"),
+    contactNumber:yup.number().required("Kindly provide your contact number").min(10,"phone number is less than 10 digits"),
     
   })
   export function RegStudentForEvent({event}){
@@ -86,7 +86,7 @@ import { API } from "../../global";
        <TextField
           className="add-movie-name"
           label="Contact Number"
-          type="number"
+          type="text"
           value={values.contactNumber} 
           name="contactNumber"
           onChange={handleChange}

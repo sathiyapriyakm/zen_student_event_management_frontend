@@ -11,9 +11,15 @@ import "./adminDashboard.css";
 export function AdminEvents() {
   const [eventList, setEventList] = useState([]);
   const navigate = useNavigate();
+  const token = localStorage.getItem('token')
+
   const getEvents = () => {
     fetch(`${API}/admin/events`, {
       method: "GET",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${token}`, // notice the Bearer before your token
+    },
     })
       .then((data) => data.json())
       .then((mvs) => setEventList(mvs));
@@ -23,6 +29,10 @@ export function AdminEvents() {
   const handleDelete = (deletionId) => {
     fetch(`${API}/admin/event/${deletionId}`, {
       method: "DELETE",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${token}`, // notice the Bearer before your token
+    },
     }).then(() => getEvents());
   };
 

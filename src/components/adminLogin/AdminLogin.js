@@ -19,7 +19,8 @@ export function AdminLogin() {
   
   const navigate=useNavigate();
   const[errorMsg,setErrorMsg]=useState("");
-  const entry=()=>navigate("/Admindashboard");
+  const[statusMsg,setStatusMsg]=useState(false);
+  const entry=()=>navigate("/Adminevents");
 
   const loginUser =(userDetail) => {
     fetch(`${API}/admin/login`,{
@@ -28,14 +29,22 @@ export function AdminLogin() {
     headers: {
       "Content-Type" : "application/json",
     },
-  }).then((data)=>data.json())
+  }).then((data)=>{
+    if(data.status===200){
+      setStatusMsg(true);
+    }
+    data.json()})
   .then((data1)=>{
-      if(data1.message==="successful login"){
+      if(statusMsg===true){
+        console.log("token:",data1.message)
+        localStorage.setItem("token", data1.message);
           entry();}
       else {
           setErrorMsg(data1.message);
       }
   });
+  
+ 
   
 
   };
@@ -98,12 +107,12 @@ export function AdminLogin() {
     <div className="text-center" style={{color:"red"}}>
   {errorMsg}
   </div>
-    <div className="text-center" style={{color:"blue"}}>
+    {/* <div className="text-center" style={{color:"blue"}}>
     <Link to="/Register">Create  Account!</Link>
     <br/>
     <br/>
    <Link to="/ForgetPassword">Forget Password?</Link>
-  </div>
+  </div> */}
  </form> 
 </div>;
 }
