@@ -8,12 +8,19 @@ import { useNavigate } from "react-router-dom";
 import { API } from "../../global";
 import "./studentDashboard.css";
 
+
+const token = localStorage.getItem('token')
+
 export function StudentEvents() {
   const [eventList, setEventList] = useState([]);
   const navigate = useNavigate();
   const getEvents = () => {
     fetch(`${API}/admin/events`, {
       method: "GET",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${token}`, // notice the Bearer before your token
+    },
     })
       .then((data) => data.json())
       .then((mvs) => setEventList(mvs));

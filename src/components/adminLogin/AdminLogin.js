@@ -12,14 +12,14 @@ import TextField from '@mui/material/TextField'
 import { useNavigate } from 'react-router-dom'
 import { API } from '../../global';
 import { useState } from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 
 
 export function AdminLogin() {
   
   const navigate=useNavigate();
   const[errorMsg,setErrorMsg]=useState("");
-  const[statusMsg,setStatusMsg]=useState(false);
+  const[user,setUser]=useState();
   const entry=()=>navigate("/Adminevents");
 
   const loginUser =(userDetail) => {
@@ -29,20 +29,55 @@ export function AdminLogin() {
     headers: {
       "Content-Type" : "application/json",
     },
-  }).then((data)=>{
-    if(data.status===200){
-      setStatusMsg(true);
-    }
-    data.json()})
-  .then((data1)=>{
-      if(statusMsg===true){
-        console.log("token:",data1.message)
-        localStorage.setItem("token", data1.message);
-          entry();}
-      else {
-          setErrorMsg(data1.message);
-      }
-  });
+  }) .then((res) => res.json())
+  .then((content) => {
+            console.log(JSON.stringify(content));
+            let token = content.data;
+            console.log(token);
+            localStorage.setItem('token', token);
+            entry();
+          })
+  .catch((err) => console.error);
+  
+  // .then((data)=>{
+  //   console.log(data);
+  //   data.json();  
+  //   console.log(data);
+  // })
+
+  // .then((data1)=>{
+  //   console.log(data1);
+  //     if(data1.message==="successful login"){
+  //       localStorage.setItem("token", data1.token);
+  //       setUser(data1.token);
+  //       console.log(user);
+  //         // entry();
+  //       }
+  //     else {
+  //         setErrorMsg(data1.message);
+  //     }
+  // });
+  
+  // .then((res)=>{
+  //   if(res.status===200){
+  //     localStorage.setItem("token", JSON.stringify(res.message));
+  //       setUser(JSON.stringify(res.message));
+  //       console.log(user);
+  //      entry();
+  //   }
+  //   else{
+  //     setErrorMsg("Invalid credential");
+  //   }
+  //   })
+  // .then((data1)=>{
+  //     if(statusMsg===true){
+  //       console.log("token:",data1.message)
+  //       localStorage.setItem("token", data1.message);
+  //         entry();}
+  //     else {
+  //         setErrorMsg(data1.message);
+  //     }
+  // });
   
  
   
