@@ -9,26 +9,23 @@ import Paper from '@mui/material/Paper'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { Button } from '@mui/material'
-import {API} from "../../global"
+import {useContext} from "react";
+import {AppContext} from '../../contexts/AppState'
+// import {API} from "../../global"
+
+
 
 // import AppContext from '../../Contexts/AppContext'
 // import { ColorButton } from './ViewBooks'
 export const Participants = () => {
-//   const {
-//     issuedBooks,
-//     setIssuedBooks,
-//     getIssuedBooks,
-//     selectedIssuedBook,
-//     deleteIssuedBooks,
-//   } = useContext(AppContext)
-const [eventList, setEventList] = useState([]);
-const getEvents = () => {
-    fetch(`${API}/admin/events`, {
-      method: "GET",
-    })
-      .then((data) => data.json())
-      .then((mvs) => setEventList(mvs));
-  };
+  const { getEvents,eventList } = useContext(AppContext)
+// const getEvents = () => {
+//     fetch(`${API}/admin/events`, {
+//       method: "GET",
+//     })
+//       .then((data) => data.json())
+//       .then((mvs) => setEventList(mvs));
+//   };
   useEffect(() => getEvents(), []);
 const deleteIssuedBooks=()=>{
     console.log("deleteIssuedBooks");

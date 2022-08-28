@@ -1,9 +1,6 @@
 import {
   Typography,
-  Button,
-  
 } from '@mui/material'
-
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from "yup";
@@ -12,6 +9,9 @@ import { useNavigate } from 'react-router-dom'
 import { API } from '../../global';
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
+import { useContext } from "react";
+import { AppContext } from "../../contexts/AppState";
+import { ColorButton } from 'components/login/Login';
 
 
 export function Register() {
@@ -62,8 +62,13 @@ export function Register() {
     },
   });
   
-  return <div className="add-user-container">
-         
+  return <div className="add-user-container" >
+  <div className="wrapper" style={{
+position: "relative",
+textAlign: "center",
+borderStyle: "solid",
+borderWidth: "5px",
+display: "inline-block"}}>
   <form  
   onSubmit={handleSubmit}
   className="add-user-form" >
@@ -98,7 +103,7 @@ export function Register() {
     />
     <TextField
     className="add-user-name"
-    label="User Name: Email"
+    label="Email"
     type="Email"
     value={values.Email} 
     name="Email"
@@ -118,10 +123,9 @@ export function Register() {
     error={touched.Password&&errors.Password?true:false}
     helperText={touched.Password&&errors.Password?errors.Password:""}
     />
-     <Button className="add-user-btn" 
-      color="primary"
+     <ColorButton className="add-user-btn" 
     type="submit"
-    variant="contained">SignUp</Button>
+    variant="contained">SignUp</ColorButton>
     <div className="text-center" style={{color:"red"}}>
   {errorMsg}
   </div>
@@ -132,6 +136,7 @@ export function Register() {
    <Link to="/ForgetPassword">Forget Password?</Link>
   </div>
   </form> 
+</div>
 </div>;
 }
 

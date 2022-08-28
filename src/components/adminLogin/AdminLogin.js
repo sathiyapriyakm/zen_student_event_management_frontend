@@ -7,7 +7,7 @@ import {
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from "yup";
-
+import { ColorButton } from 'components/login/Login';
 import TextField from '@mui/material/TextField'
 import { useNavigate } from 'react-router-dom'
 import { API } from '../../global';
@@ -31,56 +31,18 @@ export function AdminLogin() {
     },
   }) .then((res) => res.json())
   .then((content) => {
+    if(content.message==="ok"){
             console.log(JSON.stringify(content));
             let token = content.data;
             console.log(token);
             localStorage.setItem('token', token);
-            entry();
+            entry();}
+            else{
+              setErrorMsg(content.message)
+            }
           })
   .catch((err) => console.error);
-  
-  // .then((data)=>{
-  //   console.log(data);
-  //   data.json();  
-  //   console.log(data);
-  // })
-
-  // .then((data1)=>{
-  //   console.log(data1);
-  //     if(data1.message==="successful login"){
-  //       localStorage.setItem("token", data1.token);
-  //       setUser(data1.token);
-  //       console.log(user);
-  //         // entry();
-  //       }
-  //     else {
-  //         setErrorMsg(data1.message);
-  //     }
-  // });
-  
-  // .then((res)=>{
-  //   if(res.status===200){
-  //     localStorage.setItem("token", JSON.stringify(res.message));
-  //       setUser(JSON.stringify(res.message));
-  //       console.log(user);
-  //      entry();
-  //   }
-  //   else{
-  //     setErrorMsg("Invalid credential");
-  //   }
-  //   })
-  // .then((data1)=>{
-  //     if(statusMsg===true){
-  //       console.log("token:",data1.message)
-  //       localStorage.setItem("token", data1.message);
-  //         entry();}
-  //     else {
-  //         setErrorMsg(data1.message);
-  //     }
-  // });
-  
  
-  
 
   };
   const initialValues = {
@@ -103,6 +65,16 @@ export function AdminLogin() {
   });
   
   return <div className="add-user-container">
+  <div
+    className="wrapper"
+    style={{
+      position: "relative",
+      textAlign: "center",
+      borderStyle: "solid",
+      borderWidth: "5px",
+      display: "inline-block",
+    }}
+  >
   <form  
   onSubmit={handleSubmit}
   className="add-user-form" >
@@ -110,7 +82,7 @@ export function AdminLogin() {
   sx={{
     textAlign: 'center',
   }}>
-   Login Details
+   Admin Login Details
   </Typography>
     
     <TextField
@@ -135,19 +107,13 @@ export function AdminLogin() {
     error={touched.Password&&errors.Password?true:false}
     helperText={touched.Password&&errors.Password?errors.Password:""}
     />
-     <Button className="add-user-btn" 
-      color="primary"
+     <ColorButton className="add-user-btn" 
     type="submit"
-    variant="contained">Login</Button>
+    variant="contained">Login</ColorButton>
     <div className="text-center" style={{color:"red"}}>
   {errorMsg}
   </div>
-    {/* <div className="text-center" style={{color:"blue"}}>
-    <Link to="/Register">Create  Account!</Link>
-    <br/>
-    <br/>
-   <Link to="/ForgetPassword">Forget Password?</Link>
-  </div> */}
  </form> 
+ </div>
 </div>;
 }

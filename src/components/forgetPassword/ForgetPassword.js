@@ -12,6 +12,7 @@ import {
   import { API } from '../../global';
   import { useState } from 'react';
   import {Link} from 'react-router-dom';
+  import { ColorButton } from 'components/login/Login';
 
 import "../../App.css";
   
@@ -52,7 +53,13 @@ import "../../App.css";
     });
     const style1=errorMsg==="User exists and password reset mail is sent"?{color:"green"}:{color:"red"}
     
-    return <div className="add-user-container">
+    return <div className="add-user-container" >
+    <div className="wrapper" style={{
+position: "relative",
+textAlign: "center",
+borderStyle: "solid",
+borderWidth: "5px",
+display: "inline-block"}}>
     <form  
     onSubmit={handleSubmit}
     className="add-user-form" >
@@ -74,10 +81,9 @@ import "../../App.css";
       error={touched.Email&&errors.Email?true:false}
       helperText={touched.Email&&errors.Email?errors.Email:""}
       />
-       <Button className="add-user-btn" 
-        color="primary"
+       <ColorButton className="add-user-btn" 
       type="submit"
-      variant="contained">submit</Button>
+      variant="contained">submit</ColorButton>
       <div className="text-center" style={style1}>
     {errorMsg}
     </div>
@@ -88,6 +94,7 @@ import "../../App.css";
      <Link to="/Login">I can remember my password now!</Link>
     </div>
    </form> 
+   </div>
   </div>;
   }
   

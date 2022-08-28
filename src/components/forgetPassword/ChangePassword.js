@@ -15,6 +15,7 @@ import {
   import { useParams } from 'react-router-dom';
   import { useEffect } from 'react';
   import {Link} from 'react-router-dom';
+  import { ColorButton } from 'components/login/Login';
 
 import "../../App.css";
   
@@ -65,7 +66,7 @@ import "../../App.css";
     }).then((data)=>data.json())
     .then((data1)=>{
         if(data1.message==="Password updated successfully"){
-          navigate("/Dashboard")
+          navigate("/")
         }else {
             setErrorMsg(data1.message);
         }
@@ -91,7 +92,13 @@ import "../../App.css";
       },
     });
     
-    return (<div className="add-user-container">
+    return (<div className="add-user-container" >
+    <div className="wrapper" style={{
+position: "relative",
+textAlign: "center",
+borderStyle: "solid",
+borderWidth: "5px",
+display: "inline-block"}}>
     <form  
     onSubmit={handleSubmit}
     className="add-user-form" >
@@ -124,10 +131,9 @@ import "../../App.css";
       error={touched.Password2&&errors.Password2?true:false}
       helperText={touched.Password2&&errors.Password2?errors.Password2:""}
       />
-       <Button className="add-user-btn" 
-        color="primary"
+       <ColorButton className="add-user-btn" 
       type="submit"
-      variant="contained">Submit</Button>
+      variant="contained">Submit</ColorButton>
       <div className="text-center" style={{color:"red"}}>
     {errorMsg}
     </div>
@@ -138,5 +144,6 @@ import "../../App.css";
      <Link to="/Login">Login to your Account!</Link>
     </div>
    </form> 
+   </div>
   </div>);
   }
