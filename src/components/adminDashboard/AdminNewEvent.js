@@ -1,15 +1,33 @@
-import React from "react";
-import Button from '@mui/material/Button';
+import React,{useContext} from "react";
+import {Typography} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from "../../global";
 import "./adminDashboard.css";
+// import { AppContext } from "../../contexts/AppState";
+import { ColorButton } from "components/login/Login";
+
+
+const token = localStorage.getItem('token')
 
 
 
 export function AdminNewEvent() {
+  // const {addEvent} = useContext(AppContext);
+
+  const addEvent =(newEvent) => {
+    fetch(`${API}/admin/newevent`, {
+    method: "POST",
+    body: JSON.stringify(newEvent),
+    headers: {
+      'Content-type': 'application/json',
+      'Authorization': `Bearer ${token}`, // notice the Bearer before your token
+  },
+  }).then(() => navigate("/Adminevents"));
+  };
+  
   
   const navigate=useNavigate();
   const eventValidationSchema=yup.object({
@@ -21,15 +39,7 @@ export function AdminNewEvent() {
     eventduration:yup.number().required("Kindly fill the event duration"),
   })
   
-  const addEvent =(newEvent) => {
-    fetch(`${API}/admin/newevent`, {
-    method: "POST",
-    body: JSON.stringify(newEvent),
-    headers: {
-      "Content-Type" : "application/json",
-    },
-  }).then(() => navigate("/Adminevents"));
-  };
+  
   
   const {handleBlur,handleChange,handleSubmit,values,errors,touched}=useFormik({
     initialValues:{
@@ -43,17 +53,36 @@ export function AdminNewEvent() {
     validationSchema:eventValidationSchema ,
     onSubmit:(newEvent)=>{
         console.log("onSubmit",newEvent)
-      addEvent(newEvent);
+        addEvent(newEvent);
     },
   });
   
   return <div
-      className="add-movie-spec">
+      className="add-user-container">
+      <div
+        className="wrapper"
+        style={{
+          position: "relative",
+          textAlign: "center",
+          borderStyle: "solid",
+          borderWidth: "2px",
+          display: "inline-block",
+        }}
+      >
       <form onSubmit={handleSubmit}
-      className="add-movie-form" >
+      className="add-user-form" >
+        <Typography
+            variant="h4"
+            pb={2}
+            sx={{
+              textAlign: "center",
+            }}
+          >
+            Event Details
+          </Typography>
         
         <TextField
-        className="add-movie-name"
+        className="add-user-name"
         label="Event Name"
         type="text" 
         value={values.eventname} 
@@ -64,7 +93,7 @@ export function AdminNewEvent() {
         helperText={touched.eventname&&errors.eventname?errors.eventname:""}
         />
         <TextField
-        className="add-movie-name"
+        className="add-user-name"
         label="Event Poster"
         type="text"
         value={values.eventposter} 
@@ -75,7 +104,7 @@ export function AdminNewEvent() {
         helperText={touched.eventposter&&errors.eventposter?errors.eventposter:""}
         />
        <TextField
-       className="add-movie-name"
+       className="add-user-name"
        label="About event"
        type="text"
        value={values.eventsummary} 
@@ -87,7 +116,7 @@ export function AdminNewEvent() {
        />
         
        <TextField
-          className="add-movie-name"
+          className="add-user-name"
           label="Event Date"
           type="date"
           value={values.eventdate} 
@@ -99,7 +128,7 @@ export function AdminNewEvent() {
            focused
         />
        <TextField
-          className="add-movie-name"
+          className="add-user-name"
           label="Event start time"
           type="text"
           value={values.eventstarttime} 
@@ -111,7 +140,7 @@ export function AdminNewEvent() {
         />
 
        <TextField
-          className="add-movie-name"
+          className="add-user-name"
           label="Event duration in hrs"
           type="text"
           value={values.eventduration} 
@@ -122,9 +151,10 @@ export function AdminNewEvent() {
           helperText= {touched.eventduration&&errors.eventduration?errors.eventduration:""}
         />
         
-        <Button className="add-movie-btn" 
+        <ColorButton className="add-user-btn" 
         type="submit"
-        variant="contained">ADD EVENT</Button>
+        variant="contained">ADD EVENT</ColorButton>
       </form> 
+      </div>
     </div>;
 }

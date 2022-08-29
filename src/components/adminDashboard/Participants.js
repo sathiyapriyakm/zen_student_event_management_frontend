@@ -11,28 +11,16 @@ import { useEffect } from 'react'
 import { Button } from '@mui/material'
 import {useContext} from "react";
 import {AppContext} from '../../contexts/AppState'
-// import {API} from "../../global"
-
-
-
-// import AppContext from '../../Contexts/AppContext'
-// import { ColorButton } from './ViewBooks'
+import { ColorButton } from '../login/Login'
 export const Participants = () => {
   const { getEvents,eventList } = useContext(AppContext)
-// const getEvents = () => {
-//     fetch(`${API}/admin/events`, {
-//       method: "GET",
-//     })
-//       .then((data) => data.json())
-//       .then((mvs) => setEventList(mvs));
-//   };
   useEffect(() => getEvents(), []);
-const deleteIssuedBooks=()=>{
-    console.log("deleteIssuedBooks");
-};
-const selectedIssuedBook=()=>{
-    console.log("selectedIssuedBook");
-}
+// const deleteIssuedBooks=()=>{
+//     console.log("deleteIssuedBooks");
+// };
+// const selectedIssuedBook=()=>{
+//     console.log("selectedIssuedBook");
+// }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
@@ -55,22 +43,22 @@ const selectedIssuedBook=()=>{
               <TableCell align="center">{student.lastName}</TableCell>
               <TableCell align="center">{student.email}</TableCell>
               <TableCell align="center">{student.contactNumber}</TableCell>
-              <TableCell align="center">
-                <Button
+              {/* <TableCell align="center">
+                <ColorButton
                   variant="contained"
                   sx={{ marginRight: 1, marginBottom: 1 }}
                   onClick={(e) => selectedIssuedBook()}
                 >
                   Edit
-                </Button>
-                <Button
+                </ColorButton>
+                <ColorButton
                   variant="contained"
                   sx={{ marginRight: 1, marginBottom: 1 }}
                   onClick={(e) => deleteIssuedBooks()}
                 >
                   Delete
-                </Button>
-              </TableCell>
+                </ColorButton>
+              </TableCell> */}
             </TableRow>))}
             </>
           ))}

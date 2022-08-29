@@ -8,7 +8,9 @@ import { useEffect } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from "../../global";
+import { ColorButton } from "components/login/Login";
 
+const token = localStorage.getItem('token');
 
 export function EditEvents() {
   const { eventid } = useParams();
@@ -16,6 +18,10 @@ export function EditEvents() {
   const getEvent=()=>{
     fetch(`${API}/admin/event/${eventid}`,{
       method:"GET",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${token}`, // notice the Bearer before your token
+    },
     }
     )
     .then((data)=>(data.json()))
@@ -43,8 +49,10 @@ export function EditEvents() {
       fetch(`${API}/admin/event/${event._id}`,
       {
         method:"PUT",
-        body: JSON.stringify(updatedEvent),
-        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(updatedEvent),headers: {
+          'Content-type': 'application/json',
+          'Authorization': `Bearer ${token}`, // notice the Bearer before your token
+      },
     }).then(()=>{navigate("/Adminevents")}).catch((e)=>console.log("ERROR"));
     //  navigate("/movies");
     };
@@ -66,12 +74,22 @@ export function EditEvents() {
     });
   
   return <div
-      className="add-movie-spec">
+  className="add-user-container">
+  <div
+    className="wrapper"
+    style={{
+      position: "relative",
+      textAlign: "center",
+      borderStyle: "solid",
+      borderWidth: "2px",
+      display: "inline-block",
+    }}
+  >
      <form onSubmit={handleSubmit}
-      className="add-movie-form" >
+      className="add-user-form" >
         
         <TextField
-        className="add-movie-name"
+        className="add-user-name"
         label="Event Name"
         type="text" 
         value={values.eventname} 
@@ -82,7 +100,7 @@ export function EditEvents() {
         helperText={touched.eventname&&errors.eventname?errors.eventname:""}
         />
         <TextField
-        className="add-movie-name"
+        className="add-user-name"
         label="Event Poster"
         type="text"
         value={values.eventposter} 
@@ -93,7 +111,7 @@ export function EditEvents() {
         helperText={touched.eventposter&&errors.eventposter?errors.eventposter:""}
         />
        <TextField
-       className="add-movie-name"
+       className="add-user-name"
        label="About event"
        type="text"
        value={values.eventsummary} 
@@ -105,7 +123,7 @@ export function EditEvents() {
        />
         
        <TextField
-          className="add-movie-name"
+          className="add-user-name"
           label="Event Date"
           type="date"
           value={values.eventdate} 
@@ -117,7 +135,7 @@ export function EditEvents() {
            focused
         />
        <TextField
-          className="add-movie-name"
+          className="add-user-name"
           label="Event start time"
           type="text"
           value={values.eventstarttime} 
@@ -130,7 +148,7 @@ export function EditEvents() {
         />
 
        <TextField
-          className="add-movie-name"
+          className="add-user-name"
           label="Event duration in hrs"
           type="text"
           value={values.eventduration} 
@@ -141,9 +159,10 @@ export function EditEvents() {
           helperText= {touched.eventduration&&errors.eventduration?errors.eventduration:""}
         />
         
-        <Button className="add-movie-btn" 
+        <ColorButton className="add-user-btn" 
         type="submit"
-        variant="contained">EDIT EVENT</Button>
+        variant="contained">EDIT EVENT</ColorButton>
       </form>
+      </div>
     </div>;
 }

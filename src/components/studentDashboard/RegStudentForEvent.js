@@ -6,6 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from "../../global";
+import {Typography} from '@mui/material';
+import { ColorButton } from "components/login/Login";
+
+const token = localStorage.getItem('token')
 
   const registerValidationSchema=yup.object({
     firstName:yup.string().required("Kindly fill your First Name"),
@@ -24,8 +28,10 @@ import { API } from "../../global";
       fetch(`${API}/admin/eventreister/${eventid}`,
       {
         method:"PUT",
-        body: JSON.stringify(studentDetail),
-        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(studentDetail),headers: {
+          'Content-type': 'application/json',
+          'Authorization': `Bearer ${token}`, // notice the Bearer before your token
+      },
     }).then(()=>{navigate("/Studentregisteredevents")}).catch((e)=>console.log("ERROR"));
     //  navigate("/movies");
     };
@@ -45,12 +51,31 @@ import { API } from "../../global";
     });
   
   return <div
-      className="add-movie-spec">
+  className="add-user-container">
+  <div
+    className="wrapper"
+    style={{
+      position: "relative",
+      textAlign: "center",
+      borderStyle: "solid",
+      borderWidth: "2px",
+      display: "inline-block",
+    }}
+  >
      <form onSubmit={handleSubmit}
-      className="add-movie-form" >
+      className="add-user-form" >
+        <Typography
+            variant="h4"
+            pb={2}
+            sx={{
+              textAlign: "center",
+            }}
+          >
+            Participant Details
+          </Typography>
         
         <TextField
-        className="add-movie-name"
+        className="add-user-name"
         label="First Name"
         type="text" 
         value={values.firstName} 
@@ -61,7 +86,7 @@ import { API } from "../../global";
         helperText={touched.firstName&&errors.firstName?errors.firstName:""}
         />
         <TextField
-        className="add-movie-name"
+        className="add-user-name"
         label="Last Name"
         type="text"
         value={values.lastName} 
@@ -72,7 +97,7 @@ import { API } from "../../global";
         helperText={touched.lastName&&errors.lastName?errors.lastName:""}
         />
        <TextField
-       className="add-movie-name"
+       className="add-user-name"
        label="Email Id"
        type="email"
        value={values.email} 
@@ -84,7 +109,7 @@ import { API } from "../../global";
        />
         
        <TextField
-          className="add-movie-name"
+          className="add-user-name"
           label="Contact Number"
           type="text"
           value={values.contactNumber} 
@@ -94,9 +119,10 @@ import { API } from "../../global";
            error={touched.contactNumber&&errors.contactNumber?true:false}
            helperText= {touched.contactNumber&&errors.contactNumber?errors.contactNumber:""}
         />
-        <Button className="add-movie-btn" 
+        <ColorButton className="add-user-btn" 
         type="submit"
-        variant="contained">REGISTER EVENT</Button>
+        variant="contained">REGISTER EVENT</ColorButton>
       </form>
+      </div>
     </div>;
 }

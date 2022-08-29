@@ -35,21 +35,17 @@ export function StudentEventDisplay({ eventname, eventposter, eventsummary, even
         {show?<ExpandLessIcon/>:<ExpandMoreIcon/>}
       </IconButton>
       </h3> 
-      {/* <p style={styles} className="movie-rating">
-        ⭐{rating}</p> */}
+      
     </div>
-    {/* Conditional styling */}
-    {/* <p style={paraStyle} className="movie-summary">{summary}</p> */}
-
-    {/*Conditional rendering  */}
-    {show ? <p className="movie-summary"><h4>Info:</h4>{eventsummary}</p> : null}
+   
+    {show ? <p className="movie-summary" style={{color:"blue"}}><h4 style={{color:"black"}}>Info:</h4>{eventsummary}</p> : null}
     <h4 style={{display:"inline"}}>Event Date:</h4> <span> {eventdate}</span><br/>
     <h4 style={{display:"inline"}}>Event Starts at:</h4> <span> {eventstarttime}</span><br/>
     <h4 style={{display:"inline"}}> Event duration:</h4><span> {eventduration}hrs</span>
     </CardContent>
       <CardActions>
-      <div className="movie-counter-del">
-       {/* <Counter /> */}
+      <div className="movie-counter-del" style={{margin:"auto"}}>
+      
      {registerButton}
       </div>
       </CardActions>

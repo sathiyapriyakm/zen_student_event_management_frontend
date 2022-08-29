@@ -23,7 +23,7 @@ import { Participants } from "components/adminDashboard/Participants";
 import { AdminNewEvent } from "components/adminDashboard/AdminNewEvent";
 import { EditEvents } from "components/adminDashboard/EditEvents";
 import { RegStudentForEvent } from "components/studentDashboard/RegStudentForEvent";
-import { StudentDashboard } from "./components/studentDashboard/StudentDashboard";
+// import { StudentDashboard } from "./components/studentDashboard/StudentDashboard";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
@@ -346,15 +346,15 @@ export function MiniDrawer({ flow, user }) {
                     ))}
               </List>
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Box component="main" sx={{ flexGrow: 1, p: 3,width:"100%" }}>
               <DrawerHeader />
-              <div id="content-wrapper" className="d-flex flex-column">
-                <div id="content">
-                  <div className="container-fluid">
-                    <section className="routes-container">
+              <div id="content-wrapper" className="d-flex flex-column" style={{width:"100%" }}>
+                <div id="content" style={{width:"100%" }}>
+                  <div className="container-fluid" style={{width:"100%" }}>
+                    <section className="routes-container" style={{width:"100%" }}>
                       {
                         {
-                          StudentDashboard: <StudentDashboard />,
+                          // StudentDashboard: <StudentDashboard />,
                           StudentEvents: <StudentEvents />,
                           StudentRegEvents: <StudentRegEvents />,
                           AdminEvents: <AdminEvents />,
