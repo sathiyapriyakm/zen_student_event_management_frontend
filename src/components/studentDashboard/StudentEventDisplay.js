@@ -38,10 +38,10 @@ export function StudentEventDisplay({ eventname, eventposter, eventsummary, even
       
     </div>
    
-    {show ? <p className="movie-summary" style={{color:"blue"}}><h4 style={{color:"black"}}>Info:</h4>{eventsummary}</p> : null}
-    <h4 style={{display:"inline"}}>Event Date:</h4> <span> {eventdate}</span><br/>
-    <h4 style={{display:"inline"}}>Event Starts at:</h4> <span> {eventstarttime}</span><br/>
-    <h4 style={{display:"inline"}}> Event duration:</h4><span> {eventduration}hrs</span>
+    {show ? <p className="movie-summary" ><h4>Info:</h4>{eventsummary}</p> : null}
+    <h4 style={{display:"inline"}}>Date:</h4> <span> {eventdate}</span><br/>
+    <h4 style={{display:"inline"}}>Starts time:</h4> <span> {eventstarttime}</span><br/>
+    <h4 style={{display:"inline"}}>Duration:</h4><span> {eventduration}hrs</span>
     </CardContent>
       <CardActions>
       <div className="movie-counter-del" style={{margin:"auto"}}>

@@ -139,7 +139,7 @@ const Drawer = styled(MuiDrawer, {
 
 export function MiniDrawer({ flow, user }) {
   const navigate = useNavigate();
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
 
   const darkTheme = createTheme({
     palette: {
