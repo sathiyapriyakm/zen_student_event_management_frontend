@@ -1,6 +1,5 @@
-import React from "react";
+import React ,{useContext} from "react";
 import { useParams } from "react-router-dom";
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -8,6 +7,7 @@ import * as yup from "yup";
 import { API } from "../../global";
 import {Typography} from '@mui/material';
 import { ColorButton } from "components/login/Login";
+import { AppContext } from "../../contexts/AppState";
 
 const token = localStorage.getItem('token')
 
@@ -19,6 +19,7 @@ const token = localStorage.getItem('token')
     
   })
   export function RegStudentForEvent({event}){
+    const { register,setRegister } = useContext(AppContext);
 
     const { eventid } = useParams();
 
@@ -32,7 +33,9 @@ const token = localStorage.getItem('token')
           'Content-type': 'application/json',
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
-    }).then(()=>{navigate("/Studentregisteredevents")}).catch((e)=>console.log("ERROR"));
+    }).then(()=>{
+      setRegister("Cancel")
+      navigate("/Studentregisteredevents")}).catch((e)=>console.log("ERROR"));
     //  navigate("/movies");
     };
 
@@ -121,7 +124,9 @@ const token = localStorage.getItem('token')
         />
         <ColorButton className="add-user-btn" 
         type="submit"
-        variant="contained">REGISTER EVENT</ColorButton>
+        variant="contained">
+          Register Event
+          </ColorButton>
       </form>
       </div>
     </div>;

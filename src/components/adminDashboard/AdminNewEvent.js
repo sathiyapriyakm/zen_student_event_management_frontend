@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React from "react";
 import {Typography} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from "../../global";
 import "./adminDashboard.css";
-// import { AppContext } from "../../contexts/AppState";
 import { ColorButton } from "components/login/Login";
 
 

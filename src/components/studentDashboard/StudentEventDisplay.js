@@ -25,7 +25,7 @@ export function StudentEventDisplay({ eventname, eventposter, eventsummary, even
   return (<Card className="movie-container" sx={{height:"min-content"}}>
     <img className="movie-poster" src={eventposter} alt={eventname} />
     <CardContent>
-    <div className="movie-specs">
+    <div className="movie-specs" >
       <h3 className="movie-name">
         {eventname}
       {/* <IconButton aria-label="Movie Details" color="primary" onClick={()=>navigate(`/movies/${id}`)}>

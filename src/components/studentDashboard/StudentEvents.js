@@ -1,40 +1,18 @@
 import React from "react";
 import { StudentEventDisplay } from "./StudentEventDisplay";
 import { useContext, useEffect } from "react";
-import Button from '@mui/material/Button';
-// import DeleteIcon from "@mui/icons-material/Delete";
-// import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
-import { API } from "../../global";
 import "./studentDashboard.css";
-import { AppContext } from "../../contexts/AppState";
 import { ColorButton } from "components/login/Login";
+import { AppContext } from "../../contexts/AppState";
 
 
-const token = localStorage.getItem('token')
 
 export function StudentEvents() {
-  const { getEvents,handleDelete,eventList } = useContext(AppContext);
+  const { getEvents,eventList } = useContext(AppContext);
   const navigate = useNavigate();
 
-  // const getEvents = () => {
-  //   fetch(`${API}/admin/events`, {
-  //     method: "GET",
-  //     headers: {
-  //       'Content-type': 'application/json',
-  //       'Authorization': `Bearer ${token}`, // notice the Bearer before your token
-  //   },
-  //   })
-  //     .then((data) => data.json())
-  //     .then((mvs) => setEventList(mvs));
-  // };
-  useEffect(() => getEvents(), []);
-
-//   const handleDelete = (deletionId) => {
-//     fetch(`${API}/admin/event/${deletionId}`, {
-//       method: "DELETE",
-//     }).then(() => getEvents());
-//   };
+    useEffect(() => getEvents(), []);
 
   return (
     <div className="movie-list">

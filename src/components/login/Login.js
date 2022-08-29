@@ -7,8 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { API } from "../../global";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AppContext } from "../../contexts/AppState";
 import { styled } from "@mui/material/styles";
 import { purple } from "@mui/material/colors";
 

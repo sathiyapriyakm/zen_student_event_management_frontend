@@ -1,15 +1,12 @@
 import { createContext } from 'react';
 import { API } from '../global';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const token = localStorage.getItem('token')
 export const AppContext = createContext();
  
 
 export const Appstate = (props) => {
-
-  const navigate = useNavigate()
 
   const [eventList, setEventList] = useState([]);
   
@@ -34,16 +31,7 @@ export const Appstate = (props) => {
     },
     }).then(() => getEvents());
   };
-  const addEvent =(newEvent) => {
-    fetch(`${API}/admin/newevent`, {
-    method: "POST",
-    body: JSON.stringify(newEvent),
-    headers: {
-      'Content-type': 'application/json',
-      'Authorization': `Bearer ${token}`, // notice the Bearer before your token
-  },
-  }).then(() => navigate("/Adminevents"));
-  };
+  
   
 
   return (
