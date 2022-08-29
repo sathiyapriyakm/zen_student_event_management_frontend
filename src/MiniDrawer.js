@@ -174,7 +174,7 @@ export function MiniDrawer({ flow, user }) {
               position="fixed"
               open={open}
               sx={{
-                background: "#5d3fd3",
+                // background: "#5d3fd3",
                 // background:"linear-gradient(124deg, rgba(131,58,180,1) 0%, rgba(165,50,138,1) 50%, rgba(170,49,132,1) 75%, rgba(192,44,105,1) 100%)",
               }}
             >
@@ -241,7 +241,7 @@ export function MiniDrawer({ flow, user }) {
             <Drawer variant="permanent" open={open}>
               <DrawerHeader
                 sx={{
-                  background: "#5d3fd3",
+                  // background: "#5d3fd3",
                   // background:"linear-gradient(124deg, rgba(131,58,180,1) 0%, rgba(165,50,138,1) 50%, rgba(170,49,132,1) 75%, rgba(192,44,105,1) 100%)",
                 }}
               >
@@ -256,8 +256,8 @@ export function MiniDrawer({ flow, user }) {
               <Divider />
               <List
                 sx={{
-                  background: "#5d3fd3",
-                  color: "white",
+                  // background: "#5d3fd3",
+                  // color: "white",
                   height: "100%",
                   // background:"linear-gradient(124deg, rgba(131,58,180,1) 0%, rgba(165,50,138,1) 50%, rgba(170,49,132,1) 75%, rgba(192,44,105,1) 100%)",
                 }}
@@ -284,7 +284,7 @@ export function MiniDrawer({ flow, user }) {
                               minWidth: 0,
                               mr: open ? 3 : "auto",
                               justifyContent: "center",
-                              color: "white",
+                              // color: "white",
                             }}
                           >
                             {
@@ -325,7 +325,7 @@ export function MiniDrawer({ flow, user }) {
                               minWidth: 0,
                               mr: open ? 3 : "auto",
                               justifyContent: "center",
-                              color: "white",
+                              // color: "white",
                             }}
                           >
                             {
