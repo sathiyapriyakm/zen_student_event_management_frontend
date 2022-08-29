@@ -1,24 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { StudentDashboard } from "./components/studentDashboard/StudentDashboard";
 import React from "react";
-import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import AppBar from "@mui/material/AppBar";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import LogoutIcon from '@mui/icons-material/Logout';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { StudentEvents } from "components/studentDashboard/StudentEvents";
-import { StudentRegEvents } from "components/studentDashboard/StudentRegEvents";
-import { AdminEvents } from "components/adminDashboard/AdminEvents";
-import { Participants } from "components/adminDashboard/Participants";
-import { AdminNewEvent } from "components/adminDashboard/AdminNewEvent";
-import { EditEvents } from "components/adminDashboard/EditEvents";
-import { RegStudentForEvent } from "components/studentDashboard/RegStudentForEvent";
+
 import { Appstate } from "./contexts/AppState";
-import { studentdata, admindata } from "./App";
+import MiniDrawer from "./MiniDrawer";
 
 export function MainBoard({ flow, user }) {
   const navigate = useNavigate();
@@ -35,7 +21,8 @@ export function MainBoard({ flow, user }) {
         <Paper elevation={4} style={{ minHeight: "100vh", borderRadius: "0px" }}>
           {/* <Appstate> */}
           <div id="wrapper" style={{ width: "100%" }}>
-            <AppBar position="static">
+         <MiniDrawer flow={flow} user={user}/>
+            {/* <AppBar position="static">
               <Toolbar>
                 {user === "student"
                   ? studentdata.map((item, key) => (
@@ -79,11 +66,11 @@ export function MainBoard({ flow, user }) {
                   Logout
                 </Button>
               </Toolbar>
-            </AppBar>
-            <div id="content-wrapper" className="d-flex flex-column">
+            </AppBar> */}
+            {/* <div id="content-wrapper" className="d-flex flex-column">
               <div id="content">
                 {/* <Navbar/> */}
-                <div className="container-fluid">
+                {/* <div className="container-fluid">
                   <section className="routes-container">
                     {{
                       StudentDashboard: <StudentDashboard />,
@@ -97,9 +84,9 @@ export function MainBoard({ flow, user }) {
                     }[flow]}
                   </section>
                 </div>
-              </div>
+              </div> */}
               {/* <Footer/> */}
-            </div>
+            {/* </div>  */}
           </div>
           {/* </Appstate> */}
         </Paper>

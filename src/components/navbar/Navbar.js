@@ -32,7 +32,7 @@ const data = [
         to: "/contact"
     }
 ];
-export const Navbar = () => {
+const Navbar = () => {
     const [toggleIcon, setToggleIcon] = useState(false);
     const handleToggleIcon = () => {
         setToggleIcon(!toggleIcon);

@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import React from "react";
 import "./studentDashboard.css";
 
 export function StudentEventDisplay({ eventname, eventposter, eventsummary, eventdate,eventstarttime,eventduration ,id, registerButton}) {
