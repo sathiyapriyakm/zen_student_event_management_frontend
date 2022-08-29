@@ -2,13 +2,15 @@ import { createContext } from 'react';
 import { API } from '../global';
 import React, { useState } from 'react';
 
-const token = localStorage.getItem('token')
+const token = localStorage.getItem('token');
+const userData = localStorage.getItem('user')
 export const AppContext = createContext();
  
 
 export const Appstate = (props) => {
 
   const [eventList, setEventList] = useState([]);
+  const[user,setUser]=useState(userData);
   
 
   const getEvents = () => {
@@ -40,6 +42,8 @@ export const Appstate = (props) => {
         eventList,
         getEvents,
         handleDelete,
+        user,
+        setUser,
       }}
     >
       {props.children}

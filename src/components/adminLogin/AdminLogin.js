@@ -34,8 +34,10 @@ export function AdminLogin() {
     if(content.message==="ok"){
             console.log(JSON.stringify(content));
             let token = content.data;
+            let userData=content.user;
             console.log(token);
             localStorage.setItem('token', token);
+            localStorage.setItem('user', userData);
             entry();}
             else{
               setErrorMsg(content.message)

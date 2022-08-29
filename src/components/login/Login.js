@@ -37,8 +37,10 @@ export function Login() {
     if(content.message==="ok"){
         console.log(JSON.stringify(content));
         let token = content.data;
-        console.log(token);
+        let userData=content.user;
+        console.log(token,userData);
         localStorage.setItem("token", token);
+        localStorage.setItem('user', userData);
         entry();}
         else{
           setErrorMsg(content.message)
