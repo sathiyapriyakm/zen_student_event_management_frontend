@@ -158,6 +158,7 @@ export function MiniDrawer({ flow, user }) {
   };
   const handleLogOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/");
   };
   return (
