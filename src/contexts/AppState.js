@@ -22,7 +22,12 @@ const navigate =useNavigate();
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
     })
-      .then((data) => data.json())
+      .then((data) =>{
+        if(data.status===401){
+          navigate("/");
+
+        }else
+           data.json()})
       .then((events) => setEventList(events))
       .catch(error=>navigate("/"))
   }catch(err){
@@ -37,7 +42,11 @@ const navigate =useNavigate();
         'Content-type': 'application/json',
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
-    }).then(() => getEvents())
+    }).then((res) => {
+      if(res.status===401){
+        navigate("/");
+      }else
+      getEvents()})
     .catch(error=>navigate("/"))
   }catch(err){
     console.log(err);

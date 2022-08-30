@@ -25,7 +25,12 @@ export function AdminNewEvent() {
       'Content-type': 'application/json',
       'Authorization': `Bearer ${token}`, // notice the Bearer before your token
   },
-  }).then(() => navigate("/Adminevents"))
+  })
+  .then((res) =>{if(res.status===401){
+    navigate("/")
+  }else navigate("/Adminevents")
+}
+  )
   .catch(error=>navigate("/"))
 }catch(err){
   console.log(err);
