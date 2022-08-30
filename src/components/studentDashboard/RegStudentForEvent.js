@@ -34,12 +34,8 @@ const token = localStorage.getItem('token')
           'Content-type': 'application/json',
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
-    }).then((res)=>{
-      if(res.status===401){
-        navigate("/");
-      }else
-      navigate("/Studentregisteredevents")
-    })
+    }).then(()=>{
+      navigate("/Studentregisteredevents")})
       .catch((e)=>console.log(e))
     }catch(err){
       console.log(err);

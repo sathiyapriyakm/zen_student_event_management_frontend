@@ -25,12 +25,7 @@ export function EditEvents() {
     },
     }
     )
-    .then((data)=>{
-      if(data.status===401){
-      navigate("/")
-    }else
-    (data.json());
-  })
+    .then((data)=>(data.json()))
     .then((mv)=>setEvent(mv))
     .catch(error=>navigate("/"))
   }catch(err){
@@ -65,13 +60,9 @@ export function EditEvents() {
           'Content-type': 'application/json',
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
-    }).then((res)=>{
-      if(res.status===401){
-        navigate("/")
-      }else
-      navigate("/Adminevents")
-    })
-    .catch(error=>navigate("/"))
+    }).then(()=>{navigate("/Adminevents")})
+    .catch((e)=>console.log("ERROR"))
+    
   }catch(err){
     console.log(err);
      navigate("/")
