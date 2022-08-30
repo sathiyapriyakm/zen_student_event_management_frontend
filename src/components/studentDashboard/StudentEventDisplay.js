@@ -1,8 +1,5 @@
-import { useState } from "react";
-// import { Counter } from "./Counter";
-// import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import IconButton from '@mui/material/IconButton';
-// import InfoIcon from '@mui/icons-material/Info';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Card from '@mui/material/Card';
@@ -10,17 +7,19 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import React from "react";
 import "./studentDashboard.css";
+import { ColorButton } from "components/login/Login";
+import { AppContext } from "../../contexts/AppState";
 
-export function StudentEventDisplay({ eventname, eventposter, eventsummary, eventdate,eventstarttime,eventduration ,id, registerButton}) {
-//   const styles = {
-//     color: rating > 8 ? "green" : "red",
-//   };
+import { useNavigate } from "react-router-dom";
+
+export function StudentEventDisplay({ eventname, eventposter, eventsummary, eventdate,eventstarttime,eventduration ,id, registerButton,cancelButton}) {
+
   const [show, setShow] = useState(true);
-  // const paraStyle = {
-  //   display: show ? "block" : "none",
-  // };
-  // const navigate=useNavigate();
- 
+  const { eventList } = useContext(AppContext);
+
+  const navigate = useNavigate();
+
+  
 
   return (<Card className="movie-container" sx={{height:"min-content"}}>
     <img className="movie-poster" src={eventposter} alt={eventname} />
@@ -28,16 +27,12 @@ export function StudentEventDisplay({ eventname, eventposter, eventsummary, even
     <div className="movie-specs" >
       <h3 className="movie-name">
         {eventname}
-      {/* <IconButton aria-label="Movie Details" color="primary" onClick={()=>navigate(`/movies/${id}`)}>
-        <InfoIcon />
-      </IconButton>  */}
+
       <IconButton aria-label="Movie Details" color="primary" onClick={() => setShow(!show)}>
         {show?<ExpandLessIcon/>:<ExpandMoreIcon/>}
       </IconButton>
-      </h3> 
-      
+      </h3>  
     </div>
-   
     {show ? <p className="movie-summary" ><h4>Info:</h4>{eventsummary}</p> : null}
     <h4 style={{display:"inline"}}>Date:</h4> <span> {eventdate}</span><br/>
     <h4 style={{display:"inline"}}>Starts time:</h4> <span> {eventstarttime}</span><br/>
@@ -45,8 +40,11 @@ export function StudentEventDisplay({ eventname, eventposter, eventsummary, even
     </CardContent>
       <CardActions>
       <div className="movie-counter-del" style={{margin:"auto"}}>
-      
-     {registerButton}
+        <ColorButton className="reg-btn" 
+        type="submit"
+        variant="contained"
+        onClick={() => navigate(`/RegisterEvents/${id}`)}
+        >Register</ColorButton>
       </div>
       </CardActions>
     </Card>

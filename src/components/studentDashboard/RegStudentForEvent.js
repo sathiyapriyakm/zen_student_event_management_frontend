@@ -26,6 +26,7 @@ const token = localStorage.getItem('token')
   const navigate = useNavigate();
 
     const editParticipant =(studentDetail) => {
+      try{
       fetch(`${API}/admin/eventreister/${eventid}`,
       {
         method:"PUT",
@@ -34,8 +35,12 @@ const token = localStorage.getItem('token')
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
     }).then(()=>{
-      setRegister("Cancel")
-      navigate("/Studentregisteredevents")}).catch((e)=>console.log("ERROR"));
+      navigate("/Studentregisteredevents")})
+      .catch((e)=>console.log(e))
+    }catch(err){
+      console.log(err);
+       navigate("/")
+      };
     //  navigate("/movies");
     };
 

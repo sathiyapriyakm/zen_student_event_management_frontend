@@ -14,7 +14,9 @@ const token = localStorage.getItem('token');
 export function EditEvents() {
   const { eventid } = useParams();
   const [event,setEvent]=useState(null);
+  const navigate=useNavigate();
   const getEvent=()=>{
+    try{
     fetch(`${API}/admin/event/${eventid}`,{
       method:"GET",
       headers: {
@@ -24,8 +26,13 @@ export function EditEvents() {
     }
     )
     .then((data)=>(data.json()))
-    .then((mv)=>setEvent(mv));
-    }   
+    .then((mv)=>setEvent(mv))
+    .catch(error=>navigate("/"))
+  }catch(err){
+    console.log(err);
+     navigate("/")
+    };
+    }  
   useEffect(()=>getEvent(),[]);
 
   return (event?<EditForm event={event}/>:<h3>Loading...</h3>);
@@ -45,6 +52,7 @@ export function EditEvents() {
   const navigate = useNavigate();
 
     const editEvent =(updatedEvent) => {
+      try{
       fetch(`${API}/admin/event/${event._id}`,
       {
         method:"PUT",
@@ -52,7 +60,12 @@ export function EditEvents() {
           'Content-type': 'application/json',
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
-    }).then(()=>{navigate("/Adminevents")}).catch((e)=>console.log("ERROR"));
+    }).then(()=>{navigate("/Adminevents")}).catch((e)=>console.log("ERROR"))
+    .catch(error=>navigate("/"))
+  }catch(err){
+    console.log(err);
+     navigate("/")
+    };
     //  navigate("/movies");
     };
 

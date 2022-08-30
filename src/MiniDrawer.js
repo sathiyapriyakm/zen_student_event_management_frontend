@@ -31,7 +31,6 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Appstate } from "./contexts/AppState";
 import Paper from "@mui/material/Paper";
 import EventIcon from "@mui/icons-material/Event";
 // import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
@@ -158,12 +157,11 @@ export function MiniDrawer({ flow, user }) {
   };
   const handleLogOut = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem("userEmail");
     navigate("/");
   };
   return (
     <ThemeProvider theme={darkTheme}>
-      <Appstate>
         <Paper
           elevation={4}
           style={{ minHeight: "100vh", borderRadius: "0px",width:"100%" }}
@@ -372,7 +370,6 @@ export function MiniDrawer({ flow, user }) {
             </Box>
           </Box>
         </Paper>
-      </Appstate>
     </ThemeProvider>
   );
 }

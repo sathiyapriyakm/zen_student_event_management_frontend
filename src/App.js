@@ -8,11 +8,15 @@ import { ChangePassword } from "./components/forgetPassword/ChangePassword";
 import React from "react";
 import { AdminLogin } from "components/adminLogin/AdminLogin";
 import {MiniDrawer} from "./MiniDrawer";
-
+import { Appstate } from "./contexts/AppState";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+
+
   return (
     <div className="App">
+<Appstate>
       <Routes>
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />=
@@ -52,6 +56,7 @@ function App() {
         <Route path="*" element={<Navigate replace to="/404-Page" />} />
         <Route path="/reset-password/:id/:token" element={<ChangePassword />} />
       </Routes>
+      </Appstate>
     </div>
   );
 }

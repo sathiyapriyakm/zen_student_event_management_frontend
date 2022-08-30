@@ -1,19 +1,20 @@
 import { createContext } from 'react';
 import { API } from '../global';
 import React, { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const token = localStorage.getItem('token');
-const userData = localStorage.getItem('user')
+const userData = localStorage.getItem('userEmail')
 export const AppContext = createContext();
  
 
 export const Appstate = (props) => {
-
+const navigate =useNavigate();
   const [eventList, setEventList] = useState([]);
-  const[user,setUser]=useState(userData);
-  
+
 
   const getEvents = () => {
+    try{
     fetch(`${API}/admin/events`, {
       method: "GET",
       headers: {
@@ -22,16 +23,26 @@ export const Appstate = (props) => {
     },
     })
       .then((data) => data.json())
-      .then((events) => setEventList(events));
+      .then((events) => setEventList(events))
+      .catch(error=>navigate("/"))
+  }catch(err){
+        console.log(err);
+         navigate("/")};
   };
   const handleDelete = (deletionId) => {
+    try{
     fetch(`${API}/admin/event/${deletionId}`, {
       method: "DELETE",
       headers: {
         'Content-type': 'application/json',
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
-    }).then(() => getEvents());
+    }).then(() => getEvents())
+    .catch(error=>navigate("/"))
+  }catch(err){
+    console.log(err);
+     navigate("/")
+    };
   };
   
   
@@ -42,8 +53,6 @@ export const Appstate = (props) => {
         eventList,
         getEvents,
         handleDelete,
-        user,
-        setUser,
       }}
     >
       {props.children}

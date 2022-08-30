@@ -16,10 +16,8 @@ import { useState } from 'react';
 
 
 export function AdminLogin() {
-  
   const navigate=useNavigate();
   const[errorMsg,setErrorMsg]=useState("");
-  const[user,setUser]=useState();
   const entry=()=>navigate("/Adminevents");
 
   const loginUser =(userDetail) => {
@@ -32,12 +30,10 @@ export function AdminLogin() {
   }) .then((res) => res.json())
   .then((content) => {
     if(content.message==="ok"){
-            console.log(JSON.stringify(content));
             let token = content.data;
             let userData=content.user;
-            console.log(token);
-            localStorage.setItem('token', token);
-            localStorage.setItem('user', userData);
+            localStorage.setItem("token", token);
+            localStorage.setItem('userEmail', userData.Email);
             entry();}
             else{
               setErrorMsg(content.message)

@@ -17,6 +17,7 @@ export function AdminNewEvent() {
   // const {addEvent} = useContext(AppContext);
 
   const addEvent =(newEvent) => {
+    try{
     fetch(`${API}/admin/newevent`, {
     method: "POST",
     body: JSON.stringify(newEvent),
@@ -24,7 +25,13 @@ export function AdminNewEvent() {
       'Content-type': 'application/json',
       'Authorization': `Bearer ${token}`, // notice the Bearer before your token
   },
-  }).then(() => navigate("/Adminevents"));
+  }).then(() => navigate("/Adminevents"))
+  .catch(error=>navigate("/"))
+}catch(err){
+  console.log(err);
+   navigate("/")
+  };
+
   };
   
   
