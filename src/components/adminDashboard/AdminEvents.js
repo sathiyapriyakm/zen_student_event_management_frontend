@@ -1,54 +1,60 @@
-import { Typography, Container, Grid, Paper, Box, Stack } from '@mui/material'
-import React, { useContext, useEffect } from 'react'
+import {
+  Typography,
+  Container,
+  Grid,
+  Paper,
+  Box,
+  Stack,
+  IconButton,
+} from "@mui/material";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Card from '@mui/material/Card'
-import CardMedia from '@mui/material/CardMedia'
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
 import { AppContext } from "../../contexts/AppState";
-import {ColorButton} from "../login/Login"
-
-
+import { ColorButton } from "../login/Login";
+import InfoIcon from "@mui/icons-material/Info";
+import QuizIcon from '@mui/icons-material/Quiz';
 
 export const AdminEvents = () => {
-    const { getEvents,handleDelete,eventList } = useContext(AppContext)
+  const { getEvents, handleDelete, eventList } = useContext(AppContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    getEvents()
-  }, [])
+    getEvents();
+  }, []);
   return (
     <>
-      <Typography variant="h4" pb={2}
-      sx={{textAlign:"center"}}>
+      <Typography variant="h4" pb={2} sx={{ textAlign: "center" }}>
         All Events
       </Typography>
-      <Container maxWidth="md"
-      >
+      <Container maxWidth="md">
         <Grid container spacing={2}>
           {eventList.map((event) => (
             <Grid key={event._id} item xs={12} sm={12} md={12}>
-              <Paper elevation={3} sx={{ display: 'flex' }}>
+              <Paper elevation={3} sx={{ display: "flex" }}>
                 <Box
                   sx={{
                     width: "40%",
-                    height: '100%',
-                    display: { xs: 'none', md: 'flex' },
+                    height: "100%",
+                    display: { xs: "none", md: "flex" },
                   }}
                 >
                   <Card
                     sx={{
-                      maxWidth: '100%',
-                      marginRight: '10px',
-                      padding:"10px"
+                      maxWidth: "100%",
+                      marginRight: "10px",
+                      padding: "10px",
                     }}
                   >
                     <CardMedia
                       component="img"
                       sx={{
-                        maxWidth: '100%',
-                        maxHeight: '100%',
-                        objectFit:"cover",
-                        padding:"10px"
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        objectFit: "cover",
+                        padding: "10px",
                       }}
                       image={event.eventposter}
                       alt="event poster"
@@ -58,24 +64,24 @@ export const AdminEvents = () => {
 
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    width: '80%',
-                    margin: { xs: '10px 10px', md: '10px 10px' },
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "80%",
+                    margin: { xs: "10px 10px", md: "10px 10px" },
                   }}
                 >
                   <Box
                     sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      height: '100%',
-                      width: '100%',
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "100%",
+                      width: "100%",
                     }}
                   >
                     <Typography
                       variant="h6"
                       sx={{
-                        textAlign: 'start',
+                        textAlign: "start",
                       }}
                     >
                       {event.eventname}
@@ -83,56 +89,62 @@ export const AdminEvents = () => {
                     <Typography
                       variant="caption"
                       sx={{
-                        textAlign: 'start',
+                        textAlign: "start",
                       }}
                     >
-                      on {event.eventdate}
+                      event ends by {event.eventenddate}
                     </Typography>
                     <Typography
                       variant="subtitle2"
                       sx={{
-                        textAlign: 'start',
+                        textAlign: "start",
                       }}
                     >
-                      Event Time: {event.eventstarttime}
+                      Event Trailer:
+                      <IconButton
+                        aria-label="Event Details"
+                        color="success"
+                        onClick={() => navigate(`/events/${event._id}`)}
+                      >
+                        <InfoIcon />
+                      </IconButton>
                     </Typography>
                     <Typography
                       variant="subtitle2"
                       sx={{
-                        textAlign: 'start',
+                        textAlign: "start",
                       }}
                     >
-                      Event duration: {event.eventduration} hrs
+                      Event Question: 
+                      <IconButton
+                        aria-label="Event Details"
+                        color="warning"
+                        onClick={()=>{window.open(`${event.questionlink}`,"_blank")}}
+                      >
+                        <QuizIcon />
+                      </IconButton>
                     </Typography>
                     <Typography
                       variant="subtitle2"
                       sx={{
-                        textAlign: 'start',
+                        textAlign: "start",
                       }}
                     >
                       About Event: {event.eventsummary}
                     </Typography>
-                    {/* <Typography
-                      variant="subtitle2"
-                      sx={{
-                        textAlign: 'start',
-                      }}
-                    >
-                      Quantity: {book.Quantity}
-                    </Typography> */}
                   </Box>
                   <Box>
                     <Stack
                       sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        paddingBottom: '10px',
+                        display: "flex",
+                        flexDirection: "row",
+                        paddingBottom: "10px",
                       }}
                     >
                       <ColorButton
                         variant="contained"
                         // color="success"
-                        sx={{ marginRight: '10px' }}
+                        sx={{ marginRight: "10px" }}
                         onClick={() => navigate(`/EditEvents/${event._id}`)}
                       >
                         Edit
@@ -152,5 +164,5 @@ export const AdminEvents = () => {
         </Grid>
       </Container>
     </>
-  )
-}
+  );
+};

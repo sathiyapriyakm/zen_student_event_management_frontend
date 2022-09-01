@@ -1,4 +1,8 @@
-import React from 'react'
+import {
+  IconButton,
+} from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import React,{useState} from 'react'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -9,26 +13,25 @@ import Paper from '@mui/material/Paper'
 import { useEffect } from 'react'
 import {useContext} from "react";
 import {AppContext} from '../../contexts/AppState'
-import { ColorButton } from '../login/Login'
+import { ColorButton } from '../login/Login';
+import { useNavigate } from 'react-router-dom'
+
 export const Participants = () => {
-  const { getEvents,eventList } = useContext(AppContext)
+  const navigate=useNavigate();
+  const { getEvents,eventList } = useContext(AppContext);
+
   useEffect(() => getEvents(), []);
-// const deleteIssuedBooks=()=>{
-//     console.log("deleteIssuedBooks");
-// };
-// const selectedIssuedBook=()=>{
-//     console.log("selectedIssuedBook");
-// }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
         <TableHead >
           <TableRow >
             <TableCell align="center" style={{fontSize:"20px",fontWeight:"500",fontStyle:"bold"}}>Event Title</TableCell>
-            <TableCell align="center" style={{fontSize:"20px",fontWeight:"500",fontStyle:"bold"}}>Participant First Name</TableCell>
-            <TableCell align="center" style={{fontSize:"20px",fontWeight:"500",fontStyle:"bold"}}>Participant Last Name</TableCell>
             <TableCell align="center" style={{fontSize:"20px",fontWeight:"500",fontStyle:"bold"}}>Participant Mail ID</TableCell>
-            <TableCell align="center" style={{fontSize:"20px",fontWeight:"500",fontStyle:"bold"}}>Participant contact Number</TableCell>
+            <TableCell align="center" style={{fontSize:"20px",fontWeight:"500",fontStyle:"bold"}}>code Details</TableCell>
+            <TableCell align="center" style={{fontSize:"20px",fontWeight:"500",fontStyle:"bold"}}>Marks</TableCell>
+            <TableCell align="center" style={{fontSize:"20px",fontWeight:"500",fontStyle:"bold"}}>Comments</TableCell>
+            <TableCell align="center" style={{fontSize:"20px",fontWeight:"500",fontStyle:"bold"}}>Evaluvation</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -37,26 +40,26 @@ export const Participants = () => {
              {event.participantlist.map((student,index)=>(
             <TableRow key={index}>
               <TableCell align="center">{event.eventname}</TableCell>
-              <TableCell align="center">{student.firstName}</TableCell>
-              <TableCell align="center">{student.lastName}</TableCell>
-              <TableCell align="center">{student.email}</TableCell>
-              <TableCell align="center">{student.contactNumber}</TableCell>
-              {/* <TableCell align="center">
-                <ColorButton
+              <TableCell align="center">{student.studentEmail}</TableCell>
+              <TableCell align="center">
+              <IconButton
+                        aria-label="Event Details"
+                        color="success"
+                        onClick={() => navigate(`/code/${event._id}/${student.studentId}`)}
+                      >
+                        <InfoIcon />
+                      </IconButton>
+              </TableCell>
+              <TableCell align="center">{student.mark}</TableCell>
+              <TableCell align="center">{student.comment}</TableCell>
+              <TableCell align="center">
+              <ColorButton
                   variant="contained"
                   sx={{ marginRight: 1, marginBottom: 1 }}
-                  onClick={(e) => selectedIssuedBook()}
-                >
-                  Edit
+                  onClick={() => navigate(`/evaluvate/${event._id}/${student.studentId}`)}
+                > Evaluvate
                 </ColorButton>
-                <ColorButton
-                  variant="contained"
-                  sx={{ marginRight: 1, marginBottom: 1 }}
-                  onClick={(e) => deleteIssuedBooks()}
-                >
-                  Delete
-                </ColorButton>
-              </TableCell> */}
+              </TableCell>
             </TableRow>))}
             </>
           ))}
@@ -65,3 +68,4 @@ export const Participants = () => {
     </TableContainer>
   )
 }
+

@@ -1,138 +1,224 @@
-import React ,{useContext} from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from "../../global";
-import {Typography} from '@mui/material';
+import { Typography } from "@mui/material";
 import { ColorButton } from "components/login/Login";
 import { AppContext } from "../../contexts/AppState";
 
-const token = localStorage.getItem('token')
+const token = localStorage.getItem("token");
 
-  const registerValidationSchema=yup.object({
-    firstName:yup.string().required("Kindly fill your First Name"),
-    lastName:yup.string().required("Kindly fill your Last Name"),
-    email:yup.string().email().required("Kindly fill your email"),
-    contactNumber:yup.number().required("Kindly provide your contact number").min(10,"phone number is less than 10 digits"),
-    
-  })
-  export function RegStudentForEvent({event}){
-    const { register,setRegister } = useContext(AppContext);
-
-    const { eventid } = useParams();
+const registerValidationSchema = yup.object({
+  frontendcode: yup.string().required("Kindly fill your frontend code"),
+  backendcode: yup.string().required("Kindly fill your backend code"),
+  frontenddeploy: yup.string().required("Kindly fill front end deployment link"),
+  backenddeploy: yup
+    .string()
+    .required("Kindly fill backend deployment link "),
+});
+export function RegStudentForEvent() {
+  // const { getEvents, eventList, getStudentDetail, studentDetail } =
+    // useContext(AppContext);
+    const[studentDetail,setStudentDetail]=useState(null);
+    const [event,setEvent]=useState(null);
+  const { eventid } = useParams();
+  const {email}= useParams();
 
   const navigate = useNavigate();
 
-    const editParticipant =(studentDetail) => {
-      try{
-      fetch(`${API}/admin/eventreister/${eventid}`,
-      {
-        method:"PUT",
-        body: JSON.stringify(studentDetail),headers: {
+  const getEvent=(eventid)=>{
+    try{
+    fetch(`${API}/admin/event/${eventid}`,{
+      method:"GET",
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${token}`, // notice the Bearer before your token
+    },
+    }
+    )
+    .then((data)=>(data.json()))
+    .then((mv)=>setEvent(mv))
+    .catch(error=>navigate("/"))
+  }catch(err){
+    console.log(err);
+     navigate("/")
+    };
+    }  
+  const getStudentDetail=(email)=>{
+    try{
+      fetch(`${API}/admin/detail/${email}`, {
+        method: "GET",
+        headers: {
           'Content-type': 'application/json',
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
-    }).then(()=>{
-      navigate("/Studentregisteredevents")})
-      .catch((e)=>console.log(e))
+      })
+        .then((data) => data.json())
+        .then((detail) => setStudentDetail(detail))
+        .catch(error=>navigate("/"))
     }catch(err){
-      console.log(err);
-       navigate("/")
-      };
-    //  navigate("/movies");
+          console.log(err);
+           navigate("/")
+          };
     };
+   
+    // const qnLink=event.questionlink;
 
-    const {handleBlur,handleChange,handleSubmit,values,errors,touched}=useFormik({
-      initialValues:{
-      firstName:"",
-      lastName:"",
-      email:"",
-      contactNumber:"",
+  const addParticipantCode = (codeDetail) => {
+    const participantCodeDetail={
+      studentId:studentDetail.id,
+      studentName:studentDetail.name,
+      studentEmail:studentDetail.email,
+      studentCode:{
+        frontendcode:codeDetail.frontendcode,
+        backendcode:codeDetail.backendcode,
+        frontenddeploy:codeDetail.frontenddeploy,
+        backenddeploy:codeDetail.backenddeploy  
       },
-      validationSchema:registerValidationSchema ,
-      onSubmit:(studentDetail)=>{
-        console.log("onSubmit",studentDetail);
-        editParticipant(studentDetail);
+      mark:"Not evaluvated",
+      comment:"Not evaluvated"
+    }
+    try {
+      fetch(`${API}/admin/eventreister/${eventid}`, {
+        method: "PUT",
+        body: JSON.stringify(participantCodeDetail),
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`, // notice the Bearer before your token
+        },
+      })
+        .then(() => {
+          navigate("/Studentregisteredevents");
+        })
+        .catch((e) => console.log(e));
+    } catch (err) {
+      console.log(err);
+      navigate("/");
+    }
+    //  navigate("/movies");
+  };
+  useEffect(() => getStudentDetail(email),getEvent(eventid),[]);
+ 
+
+  const { handleBlur, handleChange, handleSubmit, values, errors, touched } =
+    useFormik({
+      initialValues: {
+        frontendcode: "",
+        backendcode: "",
+        frontenddeploy: "",
+        backenddeploy: "",
+      },
+      validationSchema: registerValidationSchema,
+      onSubmit: (codeDetail) => {
+        console.log("onSubmit", codeDetail);
+        getStudentDetail(email);
+        addParticipantCode(codeDetail);
       },
     });
-  
-  return <div
-  className="add-user-container">
-  <div
-    className="wrapper"
-    style={{
-      position: "relative",
-      textAlign: "center",
-      borderStyle: "solid",
-      borderWidth: "2px",
-      display: "inline-block",
-    }}
-  >
-     <form onSubmit={handleSubmit}
-      className="add-user-form" >
-        <Typography
+
+  return (event?
+    <div className="add-user-container">
+      <div
+        className="wrapper"
+        style={{
+          position: "relative",
+          textAlign: "center",
+          borderStyle: "solid",
+          borderWidth: "2px",
+          display: "inline-block",
+        }}
+      >
+        <form onSubmit={handleSubmit} className="add-user-form">
+          <Typography
             variant="h4"
             pb={2}
             sx={{
               textAlign: "center",
             }}
           >
-            Participant Details
+            Event Details
           </Typography>
-        
-        <TextField
-        className="add-user-name"
-        label="First Name"
-        type="text" 
-        value={values.firstName} 
-        name="firstName"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={touched.firstName&&errors.firstName?true:false}
-        helperText={touched.firstName&&errors.firstName?errors.firstName:""}
-        />
-        <TextField
-        className="add-user-name"
-        label="Last Name"
-        type="text"
-        value={values.lastName} 
-        name="lastName"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={touched.lastName&&errors.lastName?true:false}
-        helperText={touched.lastName&&errors.lastName?errors.lastName:""}
-        />
-       <TextField
-       className="add-user-name"
-       label="Email Id"
-       type="email"
-       value={values.email} 
-       name="email"
-       onChange={handleChange}
-       onBlur={handleBlur}
-       error={touched.email&&errors.email?true:false}
-       helperText={touched.email&&errors.email?errors.email:""}
-       />
-        
-       <TextField
-          className="add-user-name"
-          label="Contact Number"
-          type="text"
-          value={values.contactNumber} 
-          name="contactNumber"
-          onChange={handleChange}
-           onBlur={handleBlur}
-           error={touched.contactNumber&&errors.contactNumber?true:false}
-           helperText= {touched.contactNumber&&errors.contactNumber?errors.contactNumber:""}
-        />
-        <ColorButton className="add-user-btn" 
-        type="submit"
-        variant="contained">
-          Register Event
+          {/* <Typography
+            variant="h4"
+            pb={2}
+            sx={{
+              textAlign: "center",
+            }}
+          > */}
+          <ColorButton
+            className="add-user-btn"
+            type="submit"
+            variant="contained"
+            onClick={()=>{window.open(`${event.questionlink}`,"_blank")}}
+          >
+            Question Link
           </ColorButton>
-      </form>
+          {/* </Typography> */}
+          <TextField
+            className="add-user-name"
+            label="Git link for frontend code"
+            type="text"
+            value={values.frontendcode}
+            name="frontendcode"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.frontendcode && errors.frontendcode ? true : false}
+            helperText={
+              touched.frontendcode && errors.frontendcode ? errors.frontendcode : ""
+            }
+          />
+          <TextField
+            className="add-user-name"
+            label="Git link for backend code"
+            type="text"
+            value={values.backendcode}
+            name="backendcode"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.backendcode && errors.backendcode ? true : false}
+            helperText={
+              touched.backendcode && errors.backendcode ? errors.backendcode : ""
+            }
+          />
+          <TextField
+            className="add-user-name"
+            label="Frontend deployment link"
+            type="text"
+            value={values.frontenddeploy}
+            name="frontenddeploy"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.frontenddeploy && errors.frontenddeploy ? true : false}
+            helperText={touched.frontenddeploy && errors.frontenddeploy ? errors.frontenddeploy : ""}
+          />
+
+          <TextField
+            className="add-user-name"
+            label="Backend deployment link"
+            type="text"
+            value={values.backenddeploy}
+            name="backenddeploy"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.backenddeploy && errors.backenddeploy ? true : false}
+            helperText={
+              touched.backenddeploy && errors.backenddeploy
+                ? errors.backenddeploy
+                : ""
+            }
+          />
+          <ColorButton
+            className="add-user-btn"
+            type="submit"
+            variant="contained"
+          >
+            Submit
+          </ColorButton>
+        </form>
       </div>
-    </div>;
+    </div>: <h3>Loading.....</h3>
+  );
 }

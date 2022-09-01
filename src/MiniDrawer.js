@@ -37,6 +37,9 @@ import EventIcon from "@mui/icons-material/Event";
 import PeopleIcon from "@mui/icons-material/People";
 import EventRepeatIcon from "@mui/icons-material/EventRepeat";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import { EventTrailer } from "components/adminDashboard/EventTrailer";
+import { CodeDetails } from "components/adminDashboard/CodeDetails";
+import { EvaluvateCode } from "components/adminDashboard/EvaluvateCode";
 // import Icon from "@mui/material/Icon";
 
 export const studentdata = [
@@ -360,7 +363,10 @@ export function MiniDrawer({ flow, user }) {
                           Participants: <Participants />,
                           AdminNewEvent: <AdminNewEvent />,
                           EditEvents: <EditEvents />,
-                          RegStudentForEvent: <RegStudentForEvent />,
+                          EventTrailer:<EventTrailer/>,
+                          RegStudentForEvent: <RegStudentForEvent/>,
+                          CodeDetails:<CodeDetails/>,
+                          EvaluvateCode:<EvaluvateCode/>,
                         }[flow]
                       }
                     </section>

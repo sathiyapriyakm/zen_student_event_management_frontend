@@ -24,6 +24,7 @@ export function Login() {
   const [errorMsg, setErrorMsg] = useState("");
   const entry = () => navigate("/Studentevents");
 
+
   const loginUser = (userDetail) => {
     fetch(`${API}/login`, {
       method: "POST",
@@ -37,9 +38,9 @@ export function Login() {
     if(content.message==="ok"){
         let token = content.data;
         let userData=content.user;
-        console.log(userData);
         localStorage.setItem("token", token);
         localStorage.setItem('userEmail', userData.Email);
+        localStorage.setItem('userType', "student");
         entry();}
         else{
           setErrorMsg(content.message)

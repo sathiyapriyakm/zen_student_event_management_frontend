@@ -41,9 +41,9 @@ export function EditEvents() {
     eventname:yup.string().required("Kindly fill the Event Name input field"),
     eventposter:yup.string().required("Kindly fill Event Poster input field").min(5,"Need a bigger poster"),
     eventsummary:yup.string().required("Kindly give some input about the event").min(20,"Need a bigger summary"),
-    eventdate:yup.date().required("Kindly provide event Date"),
-    eventstarttime:yup.string().required("Kindly fill the event start time"),
-    eventduration:yup.number().required("Kindly fill the event duration"),
+    eventenddate:yup.date().required("Kindly provide event Date"),
+    eventtrailer:yup.string().required("Kindly fill event trailer"),
+    questionlink:yup.string().required("Kindly fill link for question of event"),
   })
   
 
@@ -72,12 +72,12 @@ export function EditEvents() {
 
     const {handleBlur,handleChange,handleSubmit,values,errors,touched}=useFormik({
       initialValues:{
-        eventname:event.eventname,
+      eventname:event.eventname,
       eventposter:event.eventposter,
       eventsummary:event.eventsummary,
-      eventdate:event.eventdate,
-      eventstarttime:event.eventstarttime,
-      eventduration:event.eventduration,
+      eventenddate:event.eventenddate,
+      eventtrailer:event.eventtrailer,
+      questionlink:event.questionlink,
       },
       validationSchema:eventValidationSchema ,
       onSubmit:(updatedEvent)=>{
@@ -137,39 +137,39 @@ export function EditEvents() {
         
        <TextField
           className="add-user-name"
-          label="Event Date"
+          label="Event End Date"
           type="date"
-          value={values.eventdate} 
-          name="eventdate"
+          value={values.eventenddate} 
+          name="eventenddate"
           onChange={handleChange}
            onBlur={handleBlur}
-           error={touched.eventdate&&errors.eventdate?true:false}
-           helperText= {touched.eventdate&&errors.eventdate?errors.eventdate:""}
+           error={touched.eventenddate&&errors.eventenddate?true:false}
+           helperText= {touched.eventenddate&&errors.eventenddate?errors.eventenddate:""}
            focused
         />
        <TextField
           className="add-user-name"
-          label="Event start time"
+          label="Event trailer"
           type="text"
-          value={values.eventstarttime} 
-          name="eventstarttime"
+          value={values.eventtrailer} 
+          name="eventtrailer"
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.eventstarttime&&errors.eventstarttime?true:false}
-          helperText= {touched.eventstarttime&&errors.eventstarttime?errors.eventstarttime:""}
+          error={touched.eventtrailer&&errors.eventtrailer?true:false}
+          helperText= {touched.eventtrailer&&errors.eventtrailer?errors.eventtrailer:""}
           focused
         />
 
        <TextField
           className="add-user-name"
-          label="Event duration in hrs"
+          label="Question Link"
           type="text"
-          value={values.eventduration} 
-          name="eventduration"
+          value={values.questionlink} 
+          name="questionlink"
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.eventduration&&errors.eventduration?true:false}
-          helperText= {touched.eventduration&&errors.eventduration?errors.eventduration:""}
+          error={touched.questionlink&&errors.questionlink?true:false}
+          helperText= {touched.questionlink&&errors.questionlink?errors.questionlink:""}
         />
         
         <ColorButton className="add-user-btn" 

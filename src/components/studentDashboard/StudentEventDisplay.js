@@ -8,14 +8,12 @@ import CardContent from '@mui/material/CardContent';
 import React from "react";
 import "./studentDashboard.css";
 import { ColorButton } from "components/login/Login";
-import { AppContext } from "../../contexts/AppState";
-
+import InfoIcon from "@mui/icons-material/Info";
 import { useNavigate } from "react-router-dom";
 
-export function StudentEventDisplay({ eventname, eventposter, eventsummary, eventdate,eventstarttime,eventduration ,id, registerButton,cancelButton}) {
+export function StudentEventDisplay({ eventname, eventposter, eventsummary, eventenddate,id,email}) {
 
   const [show, setShow] = useState(true);
-  const { eventList } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -33,18 +31,23 @@ export function StudentEventDisplay({ eventname, eventposter, eventsummary, even
       </IconButton>
       </h3>  
     </div>
-    {show ? <p className="movie-summary" ><h4>Info:</h4>{eventsummary}</p> : null}
-    <h4 style={{display:"inline"}}>Date:</h4> <span> {eventdate}</span><br/>
-    <h4 style={{display:"inline"}}>Starts time:</h4> <span> {eventstarttime}</span><br/>
-    <h4 style={{display:"inline"}}>Duration:</h4><span> {eventduration}hrs</span>
+    {show ? <><h4>Info :</h4><p className="movie-summary" > {eventsummary}</p></> : null}
+    <h4 style={{display:"inline"}}>End Date:</h4><span> {eventenddate}</span><br/>
+    <h4 style={{display:"inline"}}>Event Trailer:</h4> <span> <IconButton
+                        aria-label="Event Details"
+                        color="warning"
+                        onClick={() => navigate(`/events/student/${id}`)}
+                      >
+                        <InfoIcon />
+                      </IconButton></span><br/>
     </CardContent>
       <CardActions>
       <div className="movie-counter-del" style={{margin:"auto"}}>
         <ColorButton className="reg-btn" 
         type="submit"
         variant="contained"
-        onClick={() => navigate(`/RegisterEvents/${id}`)}
-        >Register</ColorButton>
+        onClick={() => navigate(`/RegisterEvents/${id}/${email}`)}
+        >Participate</ColorButton>
       </div>
       </CardActions>
     </Card>

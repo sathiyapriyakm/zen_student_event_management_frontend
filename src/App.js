@@ -46,8 +46,27 @@ function App() {
         path="/EditEvents/:eventid"
         element={<MiniDrawer flow="EditEvents" user="admin" />}
         />
+        <Route
+        path="/events/:eventid"
+        element={<MiniDrawer flow="EventTrailer" user="admin" />}
+        />
+        <Route
+        path="/events/student/:eventid"
+        element={<MiniDrawer flow="EventTrailer" user="student" />}
+        /><Route
+        path="/code/:eventid/:studentid"
+        element={<MiniDrawer flow="CodeDetails" user="admin" />}
+        />
+        <Route
+        path="/student/code/:eventid/:studentid"
+        element={<MiniDrawer flow="CodeDetails" user="student" />}
+        />
+        <Route
+        path="/evaluvate/:eventid/:studentid"
+        element={<MiniDrawer flow="EvaluvateCode" user="admin" />}
+        />
          <Route
-        path="/RegisterEvents/:eventid"
+        path="/RegisterEvents/:eventid/:email"
         element={<MiniDrawer flow="RegStudentForEvent" user="student" />}
         />
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
