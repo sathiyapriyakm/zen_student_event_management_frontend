@@ -21,7 +21,7 @@ export const Participants = () => {
   const { getEvents,eventList } = useContext(AppContext);
 
   useEffect(() => getEvents(), []);
-  return (
+  return (eventList?
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
         <TableHead >
@@ -65,7 +65,7 @@ export const Participants = () => {
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer> : <h3>Loading.......</h3>
   )
 }
 

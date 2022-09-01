@@ -24,7 +24,7 @@ export const AdminEvents = () => {
   useEffect(() => {
     getEvents();
   }, []);
-  return (
+  return (eventList?
     <>
       <Typography variant="h4" pb={2} sx={{ textAlign: "center" }}>
         All Events
@@ -143,7 +143,6 @@ export const AdminEvents = () => {
                     >
                       <ColorButton
                         variant="contained"
-                        // color="success"
                         sx={{ marginRight: "10px" }}
                         onClick={() => navigate(`/EditEvents/${event._id}`)}
                       >
@@ -163,6 +162,6 @@ export const AdminEvents = () => {
           ))}
         </Grid>
       </Container>
-    </>
+    </>:<h3>Loading....</h3>
   );
 };

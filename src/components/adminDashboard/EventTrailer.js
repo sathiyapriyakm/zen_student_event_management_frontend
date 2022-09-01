@@ -32,7 +32,7 @@ export function EventTrailer() {
     };
     }   
   useEffect(()=>getEvent(),[]);
-  return <div className="movie-detail-container">
+  return ( event? <div className="movie-detail-container">
     <iframe
       width="100%"
       height="650"
@@ -53,7 +53,7 @@ export function EventTrailer() {
 </Button>
      
     </div>
-  </div>;
+  </div> : <h3>Loading.....</h3>);
 
 
 }

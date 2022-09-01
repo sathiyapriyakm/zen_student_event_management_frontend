@@ -67,7 +67,6 @@ export function EditEvents() {
     console.log(err);
      navigate("/")
     };
-    //  navigate("/movies");
     };
 
     const {handleBlur,handleChange,handleSubmit,values,errors,touched}=useFormik({
