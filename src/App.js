@@ -9,7 +9,6 @@ import React from "react";
 import { AdminLogin } from "components/adminLogin/AdminLogin";
 import {MiniDrawer} from "./MiniDrawer";
 import { Appstate } from "./contexts/AppState";
-import { useNavigate } from "react-router-dom";
 
 function App() {
 
@@ -68,6 +67,10 @@ function App() {
          <Route
         path="/RegisterEvents/:eventid/:email"
         element={<MiniDrawer flow="RegStudentForEvent" user="student" />}
+        />
+        <Route
+        path="/Studentdashboard"
+        element={<MiniDrawer flow="StudentDashboard" user="student" />}
         />
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/" element={<Navigate replace to="/Login" />} />

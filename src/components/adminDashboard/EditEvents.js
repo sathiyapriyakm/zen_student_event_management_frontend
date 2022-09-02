@@ -60,9 +60,8 @@ export function EditEvents() {
           'Content-type': 'application/json',
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
-    }).then(()=>{navigate("/Adminevents")})
-    .catch((e)=>console.log("ERROR"))
-    
+    }).then((res)=>(navigate("/Adminevents")))
+    .catch((e)=>console.log("ERROR"))  
   }catch(err){
     console.log(err);
      navigate("/")

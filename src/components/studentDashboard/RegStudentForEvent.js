@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,6 @@ import * as yup from "yup";
 import { API } from "../../global";
 import { Typography } from "@mui/material";
 import { ColorButton } from "components/login/Login";
-import { AppContext } from "../../contexts/AppState";
 
 const token = localStorage.getItem("token");
 
@@ -56,7 +55,7 @@ export function RegStudentForEvent() {
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
       })
-        .then((data) => data.json())
+        .then((data) => (data.json()))
         .then((detail) => setStudentDetail(detail))
         .catch(error=>navigate("/"))
     }catch(err){
@@ -90,9 +89,7 @@ export function RegStudentForEvent() {
           Authorization: `Bearer ${token}`, // notice the Bearer before your token
         },
       })
-        .then(() => {
-          navigate("/Studentregisteredevents");
-        })
+        .then((res) => (navigate("/Studentregisteredevents")))
         .catch((e) => console.log(e));
     } catch (err) {
       console.log(err);

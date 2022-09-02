@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const token = localStorage.getItem('token');
-const email = localStorage.getItem('userEmail')
 export const AppContext = createContext();
  
 
@@ -21,10 +20,10 @@ const navigate =useNavigate();
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
     })
-      .then((data) => data.json())
+      .then((data) =>  (data.json()))
       .then((events) => setEventList(events))
       .catch(error=>navigate("/"))
-  }catch(err){
+  } catch(err){
         console.log(err);
          navigate("/")};
   };
@@ -37,7 +36,7 @@ const navigate =useNavigate();
         'Content-type': 'application/json',
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
-    }).then(() => getEvents())
+    }).then((res) =>( getEvents()))
     .catch(error=>navigate("/"))
   }catch(err){
     console.log(err);

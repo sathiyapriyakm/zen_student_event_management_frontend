@@ -87,7 +87,6 @@ import "../../App.css";
       initialValues:initialValues,
       validationSchema:userValidationSchema ,
       onSubmit:(newPassword)=>{
-        console.log("onSubmit",newPassword);
         changePassword(newPassword);
       },
     });

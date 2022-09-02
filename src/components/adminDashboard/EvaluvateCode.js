@@ -23,8 +23,8 @@ export const EvaluvateCode = () => {
           'Content-type': 'application/json',
           'Authorization': `Bearer ${token}`
         }
-      }).then((res) => navigate("/AdminParticipants"))
-        .catch(error => navigate("/"));
+      }).then((res) => ( navigate("/AdminParticipants")))
+         .catch(error => navigate("/"));
     } catch (err) {
       console.log(err);
       navigate("/");
@@ -48,7 +48,6 @@ export const EvaluvateCode = () => {
     },
     validationSchema: eventValidationSchema,
     onSubmit: (evalDetails) => {
-      console.log("onSubmit", evalDetails);
       evalCode(evalDetails);
     }
   });

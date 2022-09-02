@@ -38,7 +38,7 @@ export const CodeDetails = () => {
     },
     }
     )
-    .then((data)=>(data.json()))
+    .then((data)=>( data.json()))
     .then((mv)=>setCode(mv))
     .catch(error=>navigate("/"))
   }catch(err){

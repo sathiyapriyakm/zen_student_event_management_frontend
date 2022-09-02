@@ -25,8 +25,8 @@ export function AdminNewEvent() {
       'Content-type': 'application/json',
       'Authorization': `Bearer ${token}`, // notice the Bearer before your token
   },
-  }).then((res) => navigate("/Adminevents"))
-  .catch(error=>navigate("/"))
+  }).then((res) => (navigate("/Adminevents")))
+   .catch(error=>navigate("/"))
 }catch(err){
   console.log(err);
    navigate("/")
@@ -58,7 +58,6 @@ export function AdminNewEvent() {
     },
     validationSchema:eventValidationSchema ,
     onSubmit:(newEvent)=>{
-        console.log("onSubmit",newEvent)
         addEvent(newEvent);
     },
   });

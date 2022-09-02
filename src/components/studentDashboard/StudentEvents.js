@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { StudentEventDisplay } from "./StudentEventDisplay";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import "./studentDashboard.css";
-import { AppContext } from "../../contexts/AppState";
 import { API } from "../../global";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +26,7 @@ export function StudentEvents() {
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
       })
-        .then((data) => data.json())
+        .then((data)=>(data.json()))
         .then((events) => setNonPartList(events))
         .catch(error=>navigate("/"))
     }catch(err){

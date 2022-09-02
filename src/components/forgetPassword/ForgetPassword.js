@@ -47,7 +47,6 @@ import "../../App.css";
       initialValues:initialValues,
       validationSchema:userValidationSchema ,
       onSubmit:(emailDetail)=>{
-        console.log("onSubmit",emailDetail);
         forgetPassword(emailDetail);
       },
     });

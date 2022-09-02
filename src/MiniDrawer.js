@@ -35,21 +35,28 @@ import EventIcon from "@mui/icons-material/Event";
 import PeopleIcon from "@mui/icons-material/People";
 import EventRepeatIcon from "@mui/icons-material/EventRepeat";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import { EventTrailer } from "components/adminDashboard/EventTrailer";
 import { CodeDetails } from "components/adminDashboard/CodeDetails";
 import { EvaluvateCode } from "components/adminDashboard/EvaluvateCode";
+import { StudentDashboard } from "components/studentDashboard/StudentDashboard";
 // import Icon from "@mui/material/Icon";
 
 export const studentdata = [
   {
-    label: "All Events",
+    label: "Events to Participate",
     to: "/Studentevents",
     icon: "EventIcon",
   },
   {
-    label: "Enrolled Events",
+    label: "Participated Events",
     to: "/Studentregisteredevents",
     icon: "EventAvailableIcon",
+  },
+  {
+    label: "Student Dashboard",
+    to: "/Studentdashboard",
+    icon: "DashboardIcon",
   },
 ];
 export const admindata = [
@@ -293,6 +300,7 @@ export function MiniDrawer({ flow, user }) {
                                 PeopleIcon: <PeopleIcon />,
                                 EventRepeatIcon: <EventRepeatIcon />,
                                 Participants: <Participants />,
+                                DashboardIcon:<DashboardIcon/>,
                               }[item.icon]
                             }
                           </ListItemIcon>
@@ -354,7 +362,6 @@ export function MiniDrawer({ flow, user }) {
                     <section className="routes-container" style={{width:"100%" }}>
                       {
                         {
-                          // StudentDashboard: <StudentDashboard />,
                           StudentEvents: <StudentEvents />,
                           StudentRegEvents: <StudentRegEvents />,
                           AdminEvents: <AdminEvents />,
@@ -365,6 +372,7 @@ export function MiniDrawer({ flow, user }) {
                           RegStudentForEvent: <RegStudentForEvent/>,
                           CodeDetails:<CodeDetails/>,
                           EvaluvateCode:<EvaluvateCode/>,
+                          StudentDashboard:<StudentDashboard/>,
                         }[flow]
                       }
                     </section>

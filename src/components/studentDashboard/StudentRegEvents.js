@@ -7,8 +7,6 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { useEffect } from 'react'
-import {useContext} from "react";
-import {AppContext} from '../../contexts/AppState'
 import {ColorButton} from "../login/Login";
 import { API } from "../../global";
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +28,7 @@ const getUserParticipationDetails=()=>{
       'Authorization': `Bearer ${token}`, // notice the Bearer before your token
   },
   })
-    .then((data) => data.json())
+    .then((data) => ( data.json()))
     .then((events) => setPartList(events))
     .catch(error=>navigate("/"))
 }catch(err){

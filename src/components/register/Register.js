@@ -56,7 +56,6 @@ export function Register() {
     initialValues:initialValues,
     validationSchema:userValidationSchema ,
     onSubmit:(newUser)=>{
-      console.log("onSubmit",newUser);
       setErrorMsg("");
       regUser(newUser);
     },

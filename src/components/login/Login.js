@@ -62,7 +62,6 @@ export function Login() {
       initialValues: initialValues,
       validationSchema: userValidationSchema,
       onSubmit: (userDetail) => {
-        console.log("onSubmit", userDetail);
         setErrorMsg("");
         loginUser(userDetail);
       },
