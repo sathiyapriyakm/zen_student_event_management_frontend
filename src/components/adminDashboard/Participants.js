@@ -1,6 +1,7 @@
 import {
   IconButton,
 } from "@mui/material";
+import {Typography} from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import React,{useState} from 'react'
 import Table from '@mui/material/Table'
@@ -10,18 +11,32 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { useEffect } from 'react'
-import {useContext} from "react";
-import {AppContext} from '../../contexts/AppState'
+import { useEffect ,useContext} from 'react'
 import { ColorButton } from '../login/Login';
 import { useNavigate } from 'react-router-dom'
+import {API} from "../../global";
+import { AppContext } from "../../contexts/AppState";
 
 export const Participants = () => {
   const navigate=useNavigate();
-  const { getEvents,eventList } = useContext(AppContext);
+  const { getEvents, handleDelete, eventList } = useContext(AppContext);
+
+const token = localStorage.getItem("token");
+
+
 
   useEffect(() => getEvents(), []);
   return (eventList?
+    <>
+    <Typography
+            variant="h4"
+            pb={2}
+            sx={{
+              textAlign: "center"
+            }}
+          >
+           Tasks to Evaluvate
+          </Typography>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
         <TableHead >
@@ -37,7 +52,7 @@ export const Participants = () => {
         <TableBody>
           {eventList.map((event)=>(
               <>
-             {event.participantlist.map((student,index)=>(
+             {event.participantlist.filter((student1)=>(student1.mark==="Not evaluvated")).map((student,index)=>(
             <TableRow key={index}>
               <TableCell align="center">{event.eventname}</TableCell>
               <TableCell align="center">{student.studentEmail}</TableCell>
@@ -65,7 +80,8 @@ export const Participants = () => {
           ))}
         </TableBody>
       </Table>
-    </TableContainer> : <h3>Loading.......</h3>
+    </TableContainer>
+      </> : <h3>Loading.......</h3>
   )
 }
 

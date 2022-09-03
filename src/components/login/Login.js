@@ -22,7 +22,7 @@ export const ColorButton = styled(Button)(({ theme }) => ({
 export function Login() {
   const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState("");
-  const entry = () => navigate("/Studentevents");
+  const entry = () => navigate("/Studentdashboard");
 
 
   const loginUser = (userDetail) => {

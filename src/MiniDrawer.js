@@ -16,6 +16,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import {AdminResult} from "./components/adminDashboard/AdminResult"
 import { StudentEvents } from "components/studentDashboard/StudentEvents";
 import { StudentRegEvents } from "components/studentDashboard/StudentRegEvents";
 import { AdminEvents } from "components/adminDashboard/AdminEvents";
@@ -40,9 +41,16 @@ import { EventTrailer } from "components/adminDashboard/EventTrailer";
 import { CodeDetails } from "components/adminDashboard/CodeDetails";
 import { EvaluvateCode } from "components/adminDashboard/EvaluvateCode";
 import { StudentDashboard } from "components/studentDashboard/StudentDashboard";
+import {SendResult} from "components/adminDashboard/SendResult"
+import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 // import Icon from "@mui/material/Icon";
 
 export const studentdata = [
+  {
+    label: "Student Dashboard",
+    to: "/Studentdashboard",
+    icon: "DashboardIcon",
+  },
   {
     label: "Events to Participate",
     to: "/Studentevents",
@@ -53,11 +61,7 @@ export const studentdata = [
     to: "/Studentregisteredevents",
     icon: "EventAvailableIcon",
   },
-  {
-    label: "Student Dashboard",
-    to: "/Studentdashboard",
-    icon: "DashboardIcon",
-  },
+  
 ];
 export const admindata = [
   {
@@ -66,9 +70,14 @@ export const admindata = [
     icon: "EventIcon",
   },
   {
-    label: "Enrolled Participants",
+    label: "Participated Events",
     to: "/AdminParticipants",
     icon: "PeopleIcon",
+  },
+  {
+    label: "Evaluvated Events",
+    to: "/AdminResult",
+    icon: "ForwardToInboxIcon",
   },
   {
     label: "create new event",
@@ -342,6 +351,7 @@ export function MiniDrawer({ flow, user }) {
                                 PeopleIcon: <PeopleIcon />,
                                 EventRepeatIcon: <EventRepeatIcon />,
                                 Participants: <Participants />,
+                                ForwardToInboxIcon:<ForwardToInboxIcon/>,
                               }[item.icon]
                             }
                           </ListItemIcon>
@@ -373,6 +383,8 @@ export function MiniDrawer({ flow, user }) {
                           CodeDetails:<CodeDetails/>,
                           EvaluvateCode:<EvaluvateCode/>,
                           StudentDashboard:<StudentDashboard/>,
+                          AdminResult:<AdminResult/>,
+                          SendResult:<SendResult/>
                         }[flow]
                       }
                     </section>

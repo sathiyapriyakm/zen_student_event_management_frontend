@@ -64,6 +64,14 @@ function App() {
         path="/evaluvate/:eventid/:studentid"
         element={<MiniDrawer flow="EvaluvateCode" user="admin" />}
         />
+        <Route
+        path="/AdminResult"
+        element={<MiniDrawer flow="AdminResult" user="admin" />}
+        />
+        <Route
+        path="/SendResult/:eventid/:studentId"
+        element={<MiniDrawer flow="SendResult" user="admin" />}
+        />
          <Route
         path="/RegisterEvents/:eventid/:email"
         element={<MiniDrawer flow="RegStudentForEvent" user="student" />}
