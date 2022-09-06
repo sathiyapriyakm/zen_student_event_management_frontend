@@ -43,6 +43,16 @@ import { EvaluvateCode } from "components/adminDashboard/EvaluvateCode";
 import { StudentDashboard } from "components/studentDashboard/StudentDashboard";
 import {SendResult} from "components/adminDashboard/SendResult"
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
+import VideoCallIcon from '@mui/icons-material/VideoCall';
+import { AdminNewWebinar } from "components/adminDashboard/AdminNewWebinarEvent";
+import ViewListIcon from '@mui/icons-material/ViewList';
+import { ViewWebinar } from "components/adminDashboard/AdminWebinar";
+import { EditWebinar } from "components/adminDashboard/EditWebinar";
+import LinkIcon from '@mui/icons-material/Link';
+import WebIcon from '@mui/icons-material/Web';
+import { StudentWebinar } from "components/studentDashboard/StudentWebinar";
+import { RegisterWebinar } from "components/studentDashboard/RegisterWebinar";
+import { StudentWebinarLinks } from "components/studentDashboard/StudentWebinarLinks";
 // import Icon from "@mui/material/Icon";
 
 export const studentdata = [
@@ -52,20 +62,29 @@ export const studentdata = [
     icon: "DashboardIcon",
   },
   {
-    label: "Events to Participate",
+    label: "Coding Events",
     to: "/Studentevents",
     icon: "EventIcon",
   },
   {
-    label: "Participated Events",
+    label: "Participated coding Events",
     to: "/Studentregisteredevents",
     icon: "EventAvailableIcon",
+  },
+  {
+    label: "Webinars",
+    to: "/StudentWebinar",
+    icon: "WebIcon",
+  },{
+    label: "Registered Webinar Links",
+    to: "/StudentWebinarLinks",
+    icon: "LinkIcon",
   },
   
 ];
 export const admindata = [
   {
-    label: "All Events",
+    label: "Coding Events",
     to: "/Adminevents",
     icon: "EventIcon",
   },
@@ -83,6 +102,16 @@ export const admindata = [
     label: "create new event",
     to: "/Adminnewevents",
     icon: "EventRepeatIcon",
+  },
+  {
+    label: "View Webinar",
+    to: "/AdminWebinar",
+    icon: "ViewListIcon",
+  },
+  {
+    label: "Add Webinar",
+    to: "/AdminNewWebinar",
+    icon: "VideoCallIcon",
   },
 ];
 
@@ -310,6 +339,8 @@ export function MiniDrawer({ flow, user }) {
                                 EventRepeatIcon: <EventRepeatIcon />,
                                 Participants: <Participants />,
                                 DashboardIcon:<DashboardIcon/>,
+                                LinkIcon:<LinkIcon/>,
+                                WebIcon:<WebIcon/>,
                               }[item.icon]
                             }
                           </ListItemIcon>
@@ -352,6 +383,8 @@ export function MiniDrawer({ flow, user }) {
                                 EventRepeatIcon: <EventRepeatIcon />,
                                 Participants: <Participants />,
                                 ForwardToInboxIcon:<ForwardToInboxIcon/>,
+                                VideoCallIcon:<VideoCallIcon/>,
+                                ViewListIcon:<ViewListIcon/>,
                               }[item.icon]
                             }
                           </ListItemIcon>
@@ -384,7 +417,13 @@ export function MiniDrawer({ flow, user }) {
                           EvaluvateCode:<EvaluvateCode/>,
                           StudentDashboard:<StudentDashboard/>,
                           AdminResult:<AdminResult/>,
-                          SendResult:<SendResult/>
+                          SendResult:<SendResult/>,
+                          AdminNewWebinar:<AdminNewWebinar/>,
+                          ViewWebinar:<ViewWebinar/>,
+                          EditWebinar:<EditWebinar/>,
+                          StudentWebinar:<StudentWebinar/>,
+                          RegisterWebinar:<RegisterWebinar/>,
+                          StudentWebinarLinks:<StudentWebinarLinks/>,
                         }[flow]
                       }
                     </section>

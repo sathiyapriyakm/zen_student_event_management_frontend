@@ -29,7 +29,6 @@ export const CodeDetails = () => {
   
 
   const getCode=()=>{
-    try{
     fetch(`${API}/admin/event/code/${eventid}/${studentid}`,{
       method:"GET",
       headers: {
@@ -40,11 +39,6 @@ export const CodeDetails = () => {
     )
     .then((data)=>( data.json()))
     .then((mv)=>setCode(mv))
-    .catch(error=>navigate("/"))
-  }catch(err){
-    console.log(err);
-     navigate("/")
-    };
     }   
   useEffect(()=>getCode(),[]);
 

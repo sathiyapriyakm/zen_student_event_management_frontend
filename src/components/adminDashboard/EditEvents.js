@@ -16,7 +16,6 @@ export function EditEvents() {
   const [event,setEvent]=useState(null);
   const navigate=useNavigate();
   const getEvent=()=>{
-    try{
     fetch(`${API}/admin/event/${eventid}`,{
       method:"GET",
       headers: {
@@ -27,11 +26,6 @@ export function EditEvents() {
     )
     .then((data)=>(data.json()))
     .then((mv)=>setEvent(mv))
-    .catch(error=>navigate("/"))
-  }catch(err){
-    console.log(err);
-     navigate("/")
-    };
     }  
   useEffect(()=>getEvent(),[]);
 

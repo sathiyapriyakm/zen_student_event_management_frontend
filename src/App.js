@@ -71,14 +71,39 @@ function App() {
         <Route
         path="/SendResult/:eventid/:studentId"
         element={<MiniDrawer flow="SendResult" user="admin" />}
+        /> 
+        <Route
+        path="/AdminNewWebinar"
+        element={<MiniDrawer flow="AdminNewWebinar" user="admin" />}
+        /> 
+        <Route
+        path="/AdminWebinar"
+        element={<MiniDrawer flow="ViewWebinar" user="admin" />}
+        />
+        
+        <Route
+        path="/EditWebinar/:eventid"
+        element={<MiniDrawer flow="EditWebinar" user="admin" />}
         />
          <Route
         path="/RegisterEvents/:eventid/:email"
         element={<MiniDrawer flow="RegStudentForEvent" user="student" />}
         />
         <Route
+        path="/StudentWebinar"
+        element={<MiniDrawer flow="StudentWebinar" user="student" />}
+        />
+        <Route
         path="/Studentdashboard"
         element={<MiniDrawer flow="StudentDashboard" user="student" />}
+        />
+        <Route
+        path="/RegisterWebinar/:eventid/:email"
+        element={<MiniDrawer flow="RegisterWebinar" user="student" />}
+        />
+        <Route
+        path="/StudentWebinarLinks"
+        element={<MiniDrawer flow="StudentWebinarLinks" user="student" />}
         />
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/" element={<Navigate replace to="/Login" />} />

@@ -12,7 +12,6 @@ const navigate =useNavigate();
   const [eventList, setEventList] = useState(null);
   
   const getEvents = () => {
-    try{
     fetch(`${API}/admin/events`, {
       method: "GET",
       headers: {
@@ -21,15 +20,13 @@ const navigate =useNavigate();
     },
     })
       .then((data) =>  (data.json()))
-      .then((events) => setEventList(events))
-      .catch(error=>navigate("/"))
-  } catch(err){
-        console.log(err);
-         navigate("/")};
-  };
+      .then((events) => {
+        setEventList(events)
+        // navigate ('/Adminevents')
+  })
+  }
 
   const handleDelete = (deletionId) => {
-    try{
     fetch(`${API}/admin/event/${deletionId}`, {
       method: "DELETE",
       headers: {
@@ -37,11 +34,6 @@ const navigate =useNavigate();
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
     }).then((res) =>( getEvents()))
-    .catch(error=>navigate("/"))
-  }catch(err){
-    console.log(err);
-     navigate("/")
-    };
   };
   
   

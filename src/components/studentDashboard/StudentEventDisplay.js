@@ -31,9 +31,9 @@ export function StudentEventDisplay({ eventname, eventposter, eventsummary, even
       </IconButton>
       </h3>  
     </div>
-    {show ? <><h4>Info :</h4><p className="movie-summary" > {eventsummary}</p></> : null}
-    <h4 style={{display:"inline"}}>End Date:</h4><span> {eventenddate}</span><br/>
-    <h4 style={{display:"inline"}}>Event Trailer:</h4> <span> <IconButton
+    {show ? <p className="movie-summary" > {eventsummary}</p>: null}
+    <h6 style={{display:"inline"}}>End Date:</h6><span> {eventenddate}</span><br/>
+    <h6 style={{display:"inline"}}>Event Trailer:</h6> <span> <IconButton
                         aria-label="Event Details"
                         color="warning"
                         onClick={() => navigate(`/events/student/${id}`)}
