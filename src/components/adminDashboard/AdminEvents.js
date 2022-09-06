@@ -27,7 +27,7 @@ export const AdminEvents = () => {
   return (eventList?
     <>
       <Typography variant="h4" pb={2} sx={{ textAlign: "center" }}>
-        All Events
+        Coding Events
       </Typography>
       <Container maxWidth="md">
         <Grid container spacing={2}>
