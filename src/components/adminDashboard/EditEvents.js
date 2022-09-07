@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { useParams } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import { useNavigate } from "react-router-dom";
@@ -8,10 +8,12 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from "../../global";
 import { ColorButton } from "components/login/Login";
+import { AppContext } from "../../contexts/AppState";
 
-const token = localStorage.getItem('token');
+// const token = localStorage.getItem('token');
 
 export function EditEvents() {
+  const { token } = useContext(AppContext);
   const { eventid } = useParams();
   const [event,setEvent]=useState(null);
   const navigate=useNavigate();
@@ -24,7 +26,14 @@ export function EditEvents() {
     },
     }
     )
-    .then((data)=>(data.json()))
+    .then((data)=>{
+      if(data.status===401){  
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userType");
+        navigate("/");
+        } 
+      return data.json()})
     .then((mv)=>setEvent(mv))
     }  
   useEffect(()=>getEvent(),[]);
@@ -42,6 +51,7 @@ export function EditEvents() {
   
 
   function EditForm({event}){
+    const { token } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -54,7 +64,14 @@ export function EditEvents() {
           'Content-type': 'application/json',
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
-    }).then((res)=>(navigate("/Adminevents")))
+    }).then((res)=>{
+      if(res.status===401){  
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userType");
+        navigate("/");
+        } 
+      return navigate("/Adminevents")})
     .catch((e)=>console.log("ERROR"))  
   }catch(err){
     console.log(err);

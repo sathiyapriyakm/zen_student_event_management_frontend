@@ -10,17 +10,18 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { useEffect } from 'react'
-// import {useContext} from "react";
-// import {AppContext} from '../../contexts/AppState'
+import {useContext} from "react";
+import {AppContext} from '../../contexts/AppState'
 import { useNavigate } from 'react-router-dom'
 import {API} from "../../global"
 import EmailIcon from '@mui/icons-material/Email';
 import DraftsIcon from '@mui/icons-material/Drafts';
 
 export const AdminResult = () => {
+  const {token} = useContext(AppContext);
   const navigate=useNavigate();
 
-const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token");
 const [evaluvatedList,setEvaluvatedList]=useState(null)
 
 const getUsersEvaluvatedDetails=()=>{ 
@@ -31,7 +32,14 @@ fetch(`${API}/admin/evaluvatedList`, {
     'Authorization': `Bearer ${token}`, // notice the Bearer before your token
 },
 })
-  .then((data) => ( data.json()))
+  .then((data) => {
+    if(data.status===401){  
+      localStorage.removeItem("token");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userType");
+      navigate("/");
+      }
+      return data.json()})
   .then((events) => setEvaluvatedList(events))
 }
 

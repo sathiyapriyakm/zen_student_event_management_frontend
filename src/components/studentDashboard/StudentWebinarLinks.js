@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useState,useContext} from 'react'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -10,12 +10,13 @@ import { useEffect } from 'react'
 import {ColorButton} from "../login/Login";
 import { API } from "../../global";
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from "../../contexts/AppState";
 
 
 export const StudentWebinarLinks = () => {
-  // const { getUserParticipationDetails,userList } = useContext(AppContext)
+  const { token} = useContext(AppContext)
    const navigate=useNavigate();
-const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token");
 const email = localStorage.getItem('userEmail');
 const [partList,setPartList]=useState(null)
 
@@ -28,7 +29,14 @@ const getUserParticipationDetails=()=>{
             'Authorization': `Bearer ${token}`, // notice the Bearer before your token
         },
         })
-          .then((data)=>(data.json()))
+          .then((data)=>{
+            if(data.status===401){  
+              localStorage.removeItem("token");
+              localStorage.removeItem("userEmail");
+              localStorage.removeItem("userType");
+              navigate("/");
+              }
+            return data.json()})
           .then((events) => setPartList(events))
           .catch(error=>navigate("/"))
       }catch(err){
@@ -46,7 +54,15 @@ const getUserParticipationDetails=()=>{
               'Authorization': `Bearer ${token}`, // notice the Bearer before your token
           },
           })
-            .then((data)=> getUserParticipationDetails())
+            .then((data)=> {
+              if(data.status===401){  
+                localStorage.removeItem("token");
+                localStorage.removeItem("userEmail");
+                localStorage.removeItem("userType");
+                navigate("/");
+                }
+              return getUserParticipationDetails()
+            })
             .catch(error=>navigate("/"))
     }
 

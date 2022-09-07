@@ -3,14 +3,15 @@ import { API } from '../global';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const token = localStorage.getItem('token');
+// const token = localStorage.getItem('token');
 export const AppContext = createContext();
  
 
 export const Appstate = (props) => {
 const navigate =useNavigate();
   const [eventList, setEventList] = useState(null);
-  
+  const [token,setToken]=useState(localStorage.getItem("token"));
+
   const getEvents = () => {
     fetch(`${API}/admin/events`, {
       method: "GET",
@@ -19,10 +20,16 @@ const navigate =useNavigate();
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
     })
-      .then((data) =>  (data.json()))
+      .then((data) => {
+        if(data.status===401){  
+          localStorage.removeItem("token");
+          localStorage.removeItem("userEmail");
+          localStorage.removeItem("userType");
+          navigate("/");
+          }
+        return data.json()})
       .then((events) => {
         setEventList(events)
-        // navigate ('/Adminevents')
   })
   }
 
@@ -33,7 +40,14 @@ const navigate =useNavigate();
         'Content-type': 'application/json',
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
-    }).then((res) =>( getEvents()))
+    }).then((res) =>{
+      if(res.status===401){  
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userType");
+        navigate("/");
+        }
+      return getEvents()})
   };
   
   
@@ -44,6 +58,8 @@ const navigate =useNavigate();
         eventList,
         getEvents,
         handleDelete,
+        token,
+        setToken,
       }}
     >
       {props.children}

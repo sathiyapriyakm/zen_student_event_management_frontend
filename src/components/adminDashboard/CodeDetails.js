@@ -7,19 +7,21 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { ColorButton } from '../login/Login';
 import { useParams } from "react-router-dom";
-import {useState,useEffect} from 'react';
+import {useState,useEffect,useContext} from 'react';
 import {
     Typography
   } from "@mui/material";
   import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
   import { useNavigate } from "react-router-dom";
   import { API } from "../../global"; 
+  import { AppContext } from "../../contexts/AppState";
 
 
-  const token = localStorage.getItem('token')
+  // const token = localStorage.getItem('token')
 
 
 export const CodeDetails = () => {
+  const {token} = useContext(AppContext);
 
     const navigate = useNavigate();
   const { eventid } = useParams();
@@ -37,7 +39,14 @@ export const CodeDetails = () => {
     },
     }
     )
-    .then((data)=>( data.json()))
+    .then((data)=>{
+      if(data.status===401){  
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userType");
+        navigate("/");
+        } 
+        return data.json()})
     .then((mv)=>setCode(mv))
     }   
   useEffect(()=>getCode(),[]);

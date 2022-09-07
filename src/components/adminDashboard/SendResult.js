@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,12 +13,14 @@ import {
   } from "@mui/material";
   import { useNavigate } from "react-router-dom";
   import { API } from "../../global"; 
+  import { AppContext } from "../../contexts/AppState";
 
 
-  const token = localStorage.getItem('token')
+  // const token = localStorage.getItem('token')
 
 
 export const SendResult = () => {
+  const { token } = useContext(AppContext);
 
     const navigate = useNavigate();
   const { eventid } = useParams();
@@ -36,7 +38,15 @@ export const SendResult = () => {
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
     })
-      .then((data) => ( data.json()))
+      .then((data) => {
+        if(data.status===401){  
+          localStorage.removeItem("token");
+          localStorage.removeItem("userEmail");
+          localStorage.removeItem("userType");
+          navigate("/");
+          }
+        return data.json();
+      })
       .then((events) => setResultDetail(events))
       .catch(error=>navigate("/"))
   }catch(err){
@@ -54,7 +64,14 @@ export const SendResult = () => {
         'Content-type': 'application/json',
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
-    }).then((res) => (navigate("/AdminResult")))
+    }).then((res) => {
+      if(res.status===401){  
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userType");
+        navigate("/");
+        }
+      return navigate("/AdminResult")})
      .catch(error=>navigate("/"))
   }catch(err){
     console.log(err);

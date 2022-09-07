@@ -4,7 +4,7 @@ import {
   
 } from '@mui/material'
 
-import React from 'react'
+import React,{useContext} from 'react'
 import { useFormik } from 'formik'
 import * as Yup from "yup";
 import { ColorButton } from 'components/login/Login';
@@ -12,13 +12,14 @@ import TextField from '@mui/material/TextField'
 import { useNavigate } from 'react-router-dom'
 import { API } from '../../global';
 import { useState } from 'react';
-
+import { AppContext } from "../../contexts/AppState";
 
 
 export function AdminLogin() {
+  const {setToken } = useContext(AppContext);
   const navigate=useNavigate();
   const[errorMsg,setErrorMsg]=useState("");
-  const entry=()=>navigate("/Adminevents");
+  // const entry=()=>navigate("/Adminevents");
 
   const loginUser =(userDetail) => {
     fetch(`${API}/admin/login`,{
@@ -30,11 +31,13 @@ export function AdminLogin() {
   }) .then((res) => res.json())
   .then((content) => {
     if(content.message==="ok"){
-            let token = content.data;
             let userData=content.user;
-            localStorage.setItem("token", token);
+            localStorage.setItem("token", content.data);
             localStorage.setItem('userEmail', userData.Email);
-            entry();}
+            localStorage.setItem('userType', "admin");
+            setToken(content.data)
+            return navigate("/Adminevents")
+          }
             else{
               setErrorMsg(content.message)
             }

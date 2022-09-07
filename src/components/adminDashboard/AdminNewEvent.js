@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import {Typography} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from "react-router-dom";
@@ -7,14 +7,15 @@ import * as yup from "yup";
 import { API } from "../../global";
 import "./adminDashboard.css";
 import { ColorButton } from "components/login/Login";
+import { AppContext } from "../../contexts/AppState";
 
 
-const token = localStorage.getItem('token')
+// const token = localStorage.getItem('token')
 
 
 
 export function AdminNewEvent() {
-  // const {addEvent} = useContext(AppContext);
+const {token} = useContext(AppContext);
 
   const addEvent =(newEvent) => {
   
@@ -25,7 +26,14 @@ export function AdminNewEvent() {
       'Content-type': 'application/json',
       'Authorization': `Bearer ${token}`, // notice the Bearer before your token
   },
-  }).then((res) => (navigate("/Adminevents")))
+  }).then((res) => {
+    if(res.status===401){  
+      localStorage.removeItem("token");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userType");
+      navigate("/");
+      }
+    return navigate("/Adminevents")})
   };
   
   

@@ -1,4 +1,4 @@
-import React ,{useState, useEffect} from 'react';
+import React ,{useState, useEffect,useContext} from 'react';
 import { ColorButton } from '../login/Login';
 import { API } from '../../global';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -7,12 +7,13 @@ import * as yup from "yup";
 import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { AppContext } from "../../contexts/AppState";
 
-const token = localStorage.getItem('token');
+// const token = localStorage.getItem('token');
 
 
 export const RegisterWebinar = () => {
-
+  const { token } = useContext(AppContext);
   const { eventid } = useParams();
   const { email } = useParams();
   const [webinar,setWebinar]=useState(null);
@@ -28,7 +29,15 @@ export const RegisterWebinar = () => {
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
     })
-      .then((data) =>  (data.json()))
+      .then((data) =>  {
+        if(data.status===401){  
+          localStorage.removeItem("token");
+          localStorage.removeItem("userEmail");
+          localStorage.removeItem("userType");
+          navigate("/");
+          }
+        return data.json()}
+        )
       .then((event) => {
           setWebinar(event)
           if((event.participantlist.length)< event.maxParticipants)
@@ -53,6 +62,7 @@ export const RegisterWebinar = () => {
   
 
   function EditWebinarForm({eventid, email}){
+    const { token } = useContext(AppContext);
 
   const navigate = useNavigate();
   const registerWebinar =(cardDetail) => {
@@ -64,7 +74,14 @@ export const RegisterWebinar = () => {
       'Content-type': 'application/json',
       'Authorization': `Bearer ${token}`, // notice the Bearer before your token
   },
-  }).then((res) => (navigate("/StudentWebinarLinks")))
+  }).then((res) => {
+    if(res.status===401){  
+      localStorage.removeItem("token");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userType");
+      navigate("/");
+      }
+     return navigate("/StudentWebinarLinks")})
   };
   
 

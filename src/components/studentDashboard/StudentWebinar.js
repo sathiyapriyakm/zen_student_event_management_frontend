@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { StudentWebinarDisplay } from "./StudentWebinarDisplay";
-import { useEffect } from "react";
+import { useEffect ,useContext} from "react";
 import "./studentDashboard.css";
 import { API } from "../../global";
 import { useNavigate } from "react-router-dom";
 import { ColorButton } from "components/login/Login";
+import { AppContext } from "../../contexts/AppState";
 
-const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token");
 const email = localStorage.getItem('userEmail');
 
 
@@ -14,7 +15,7 @@ export function StudentWebinar() {
   const navigate = useNavigate();
 
   const [webnarList,setWebnarList]=useState(null)
-  // const { getEvents,eventList,getStudentDetail,studentDetail } = useContext(AppContext);
+  const { token} = useContext(AppContext);
 
   const getStudentWebinarList=()=>{
 
@@ -27,7 +28,14 @@ export function StudentWebinar() {
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
       })
-        .then((data)=>(data.json()))
+        .then((data)=>{
+          if(data.status===401){  
+            localStorage.removeItem("token");
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("userType");
+            navigate("/");
+            }
+         return data.json()})
         .then((events) => setWebnarList(events))
         .catch(error=>navigate("/"))
     }catch(err){

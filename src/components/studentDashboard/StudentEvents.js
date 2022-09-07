@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import { StudentEventDisplay } from "./StudentEventDisplay";
 import { useEffect } from "react";
 import "./studentDashboard.css";
 import { API } from "../../global";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../contexts/AppState";
 
-const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token");
 const email = localStorage.getItem('userEmail');
 
 
@@ -13,7 +14,7 @@ export function StudentEvents() {
   const navigate = useNavigate();
 
   const [nonPartList,setNonPartList]=useState(null)
-  // const { getEvents,eventList,getStudentDetail,studentDetail } = useContext(AppContext);
+  const { token } = useContext(AppContext);
 
   const getEventsNotParticipated=()=>{
 
@@ -26,7 +27,14 @@ export function StudentEvents() {
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
       })
-        .then((data)=>(data.json()))
+        .then((data)=>{
+          if(data.status===401){  
+            localStorage.removeItem("token");
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("userType");
+            navigate("/");
+            }
+          return data.json()})
         .then((events) => setNonPartList(events))
         .catch(error=>navigate("/"))
     }catch(err){

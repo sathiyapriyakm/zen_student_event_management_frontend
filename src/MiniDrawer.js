@@ -53,6 +53,7 @@ import WebIcon from '@mui/icons-material/Web';
 import { StudentWebinar } from "components/studentDashboard/StudentWebinar";
 import { RegisterWebinar } from "components/studentDashboard/RegisterWebinar";
 import { StudentWebinarLinks } from "components/studentDashboard/StudentWebinarLinks";
+import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices';
 // import Icon from "@mui/material/Icon";
 
 export const studentdata = [
@@ -106,7 +107,7 @@ export const admindata = [
   {
     label: "View Webinar",
     to: "/AdminWebinar",
-    icon: "ViewListIcon",
+    icon: "ImportantDevicesIcon",
   },
   {
     label: "Add Webinar",
@@ -204,6 +205,7 @@ export function MiniDrawer({ flow, user }) {
   const handleLogOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
+    localStorage.removeItem('userType');
     navigate("/");
   };
   return (
@@ -385,6 +387,7 @@ export function MiniDrawer({ flow, user }) {
                                 ForwardToInboxIcon:<ForwardToInboxIcon/>,
                                 VideoCallIcon:<VideoCallIcon/>,
                                 ViewListIcon:<ViewListIcon/>,
+                                ImportantDevicesIcon:<ImportantDevicesIcon/>,
                               }[item.icon]
                             }
                           </ListItemIcon>

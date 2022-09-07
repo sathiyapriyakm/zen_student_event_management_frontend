@@ -1,5 +1,5 @@
 import { Typography, Button } from "@mui/material";
-import React from "react";
+import React ,{useContext} from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import TextField from "@mui/material/TextField";
@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { purple } from "@mui/material/colors";
+import { AppContext } from "../../contexts/AppState";
 
 export const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(purple[500]),
@@ -20,9 +21,9 @@ export const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 export function Login() {
+  const {setToken } = useContext(AppContext);
   const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState("");
-  const entry = () => navigate("/Studentdashboard");
 
 
   const loginUser = (userDetail) => {
@@ -36,12 +37,12 @@ export function Login() {
       .then((res) => res.json())
       .then((content) => {
     if(content.message==="ok"){
-        let token = content.data;
         let userData=content.user;
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", content.data);
         localStorage.setItem('userEmail', userData.Email);
         localStorage.setItem('userType', "student");
-        entry();}
+        setToken(content.data)
+        return navigate("/Studentdashboard")}
         else{
           setErrorMsg(content.message)
         }

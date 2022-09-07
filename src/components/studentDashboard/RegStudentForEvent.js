@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { useParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { API } from "../../global";
 import { Typography } from "@mui/material";
 import { ColorButton } from "components/login/Login";
+import { AppContext } from "../../contexts/AppState";
 
 const token = localStorage.getItem("token");
 
@@ -19,8 +20,7 @@ const registerValidationSchema = yup.object({
     .required("Kindly fill backend deployment link "),
 });
 export function RegStudentForEvent() {
-  // const { getEvents, eventList, getStudentDetail, studentDetail } =
-    // useContext(AppContext);
+  const { token } = useContext(AppContext);
     const[studentDetail,setStudentDetail]=useState(null);
     const [event,setEvent]=useState(null);
   const { eventid } = useParams();
@@ -38,7 +38,14 @@ export function RegStudentForEvent() {
     },
     }
     )
-    .then((data)=>(data.json()))
+    .then((data)=>{
+      if(data.status===401){  
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userType");
+        navigate("/");
+        }
+      return data.json()})
     .then((mv)=>setEvent(mv))
     .catch(error=>navigate("/"))
   }catch(err){
@@ -55,7 +62,14 @@ export function RegStudentForEvent() {
           'Authorization': `Bearer ${token}`, // notice the Bearer before your token
       },
       })
-        .then((data) => (data.json()))
+        .then((data) => {
+          if(data.status===401){  
+            localStorage.removeItem("token");
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("userType");
+            navigate("/");
+            }
+          return data.json()})
         .then((detail) => setStudentDetail(detail))
         .catch(error=>navigate("/"))
     }catch(err){
@@ -64,7 +78,7 @@ export function RegStudentForEvent() {
           };
     };
    
-    // const qnLink=event.questionlink;
+   
 
   const addParticipantCode = (codeDetail) => {
     const participantCodeDetail={

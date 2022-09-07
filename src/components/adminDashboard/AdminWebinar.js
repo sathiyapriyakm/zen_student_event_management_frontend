@@ -7,19 +7,19 @@ import {
   Stack,
   IconButton,
 } from "@mui/material";
-import React, { useState , useEffect } from "react";
+import React, { useState , useEffect,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-// import { AppContext } from "../../contexts/AppState";
+import { AppContext } from "../../contexts/AppState";
 import { ColorButton } from "../login/Login";
 import {API} from "../../global";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-const token = localStorage.getItem('token')
+// const token = localStorage.getItem('token')
 
 export const ViewWebinar = () => {
-  
+  const {token} = useContext(AppContext);
   const [webinarList, setWebinarList] = useState(null);
   const [show, setShow] = useState(true);
   
@@ -31,7 +31,14 @@ export const ViewWebinar = () => {
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
     })
-      .then((data) =>  (data.json()))
+      .then((data) =>  {
+        if(data.status===401){  
+          localStorage.removeItem("token");
+          localStorage.removeItem("userEmail");
+          localStorage.removeItem("userType");
+          navigate("/");
+          }
+       return data.json()})
       .then((events) => setWebinarList(events))
   }
 
@@ -42,7 +49,14 @@ export const ViewWebinar = () => {
         'Content-type': 'application/json',
         'Authorization': `Bearer ${token}`, // notice the Bearer before your token
     },
-    }).then((res) =>( getWebinar()))
+    }).then((res) =>{
+      if(res.status===401){  
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userType");
+        navigate("/");
+        }
+      return getWebinar()})
     console.log(deletionId);
   };
 

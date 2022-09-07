@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import {useState,useEffect} from 'react';
+import {useState,useEffect,useContext} from 'react';
 import Button from '@mui/material/Button';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { API } from "../../global"; 
 import "./adminDashboard.css"
+import { AppContext } from "../../contexts/AppState";
 
-const token = localStorage.getItem('token')
+// const token = localStorage.getItem('token')
 export function EventTrailer() {
+  const { token } = useContext(AppContext);
   const { eventid } = useParams();
   const navigate = useNavigate();
   const [event,setEvent]=useState({});
@@ -23,7 +25,15 @@ export function EventTrailer() {
     },
     }
     )
-    .then((data)=>(data.json()))
+    .then((data)=>{
+      if(data.status===401){  
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userType");
+        navigate("/");
+        }
+      return data.json()
+    })
     .then((mv)=>setEvent(mv))
     .catch(error=>navigate("/"))
   }catch(err){

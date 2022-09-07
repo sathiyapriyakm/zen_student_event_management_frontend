@@ -1,14 +1,14 @@
 import {CardDashboard} from "./CardDashboard"
 import {ChartDashboard} from "./ChartDashboard"
-import ProjectIllustration from "./ProjectIllustration.js"
-import {useEffect,useState} from 'react';
+import {useEffect,useState,useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { API } from "../../global";
+import { AppContext } from "../../contexts/AppState";
 
 export function StudentDashboard(){
-    
+  const { token } = useContext(AppContext);
 const navigate=useNavigate();
-const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token");
 const email = localStorage.getItem('userEmail');
 const [userData,setUserData]=useState(null);
 
@@ -21,7 +21,14 @@ const getDashboardDetails=()=>{
       'Authorization': `Bearer ${token}`, // notice the Bearer before your token
   },
   })
-    .then((data) => (data.json()))
+    .then((data) => {
+      if(data.status===401){  
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userType");
+        navigate("/");
+        }
+      return data.json()})
     .then((data1) => setUserData(data1))
     .catch(error=>navigate("/"))
 }catch(err){

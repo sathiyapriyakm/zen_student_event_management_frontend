@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { ColorButton } from '../login/Login';
 import { API } from '../../global';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,13 +6,14 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import { AppContext } from "../../contexts/AppState";
 
 
 export const EvaluvateCode = () => {
-
+  const { token } = useContext(AppContext);
   const { eventid } = useParams();
   const { studentid } = useParams();
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
 
   const evalCode = (evalDetails) => {
     try {
@@ -23,7 +24,14 @@ export const EvaluvateCode = () => {
           'Content-type': 'application/json',
           'Authorization': `Bearer ${token}`
         }
-      }).then((res) => ( navigate("/AdminParticipants")))
+      }).then((res) => {
+        if(res.status===401){  
+          localStorage.removeItem("token");
+          localStorage.removeItem("userEmail");
+          localStorage.removeItem("userType");
+          navigate("/");
+          }
+         return navigate("/AdminParticipants")})
          .catch(error => navigate("/"));
     } catch (err) {
       console.log(err);
