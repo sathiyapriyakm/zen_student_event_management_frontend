@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# [Zen event management APP](https://flourishing-granita-2a8869.netlify.app/Adminevents) - MERN Stack Website
+  [Front End](https://github.com/sathiyapriyakm/zen_student_event_management_frontend)
+  [Back End](https://github.com/sathiyapriyakm/zen_student_event_management_backend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## Brief Description
 
-### `npm start`
+This web Application is used to share the information on coding events and webinar to students. Students can participate and submit their coding details. Admin can evaluvate their code and mail their result using this App to their registered mail ID.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `Short tech summary`
+  - Implemented authentication,authorization using Json Web Token for login,along with all CRUD features.
+  - React is Used for Front end and nodeJS as Back end along with MongoDB as database  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `User features`
+  - Students can  view the events and their details.
+  -  students can participate and submit their code details
+  -  students can view their results using graphical representation in dashboard.
+  - students can register and participate in webinar
+   
+### `Admin features`
+  - Admin can add, edit and remove code events and webinars.
+  - Admin can evaluvate and mail the result using node mailer.
+  
+  
+## Tech Used
+  - ReactJS
+  - ExpressJS
+  - NodeJS
+  - MongoDB 
+  - JWT for Authentication
+  - NodeMailer for mailing results
+  
+## Screenshots📷
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Admin Coding Events
+![Admin Coding Events](/ScreenShots/AdminDashboard.JPG "Admin Coding Events")
+- Admin View Students participation
+![Admin View Students participation](/ScreenShots/AdminViewStudentsParticipation.JPG "Admin View Students participation")
+- Admin Mailing Students Result
+![Admin Mailing Students Result](/ScreenShots/AdminMailingStudentsResult.JPG "Admin Mailing Students Result")
+- Admin Add New Event
+![Admin Add New Event](/ScreenShots/AdminAddNewEvent.JPG "Admin Add New Event")
+- Admin Add New Webinar
+![Admin Add New Webinar](/ScreenShots/AdminAddNewWebinar.JPG "Admin Add New Webinar")
+- Admin View Webinar
+![Admin View Webinar](/ScreenShots/AdminViewWebinar.JPG "Admin View Webinar")
+- Students View dashboard
+![ Students View dashboard](/ScreenShots/StudentViewDashboard.JPG "Students View dashboard")
+- Student view event list
+![Student view event list](/ScreenShots/StudentViewEventList.JPG "Student view event list")
+- Student Registering Event
+![Student Registering Event](/ScreenShots/StudentRegisteringEvent.JPG "Student Registering Event")
+- Student Participated Event
+![Student Participated Event](/ScreenShots/StudentParticipatedEvent.JPG "Student Participated Event")
+- Student View Webiars list
+![Student View Webiars list](/ScreenShots/StudentViewWebiarsList.JPG "Student View Webiars list")
+- Student Registering Webinars
+![Student Registering Webinars](/ScreenShots/StudentRegisteringWebinars.JPG "Student Registering Webinars")
+- Student Registered Webinars
+![Student Registered Webinars](/ScreenShots/StudentRegisteredWebinars.JPG "Student Registered Webinars")
